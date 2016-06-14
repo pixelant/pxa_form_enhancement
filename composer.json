@@ -1,0 +1,14 @@
+{
+    "name": "pxa_form_enhancement",
+    "description": "Pxa TYPO3 Form Enhancement",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0+",
+    "autoload": {
+        "psr-4": {
+            "Pixelant\\PxaFormEnhancement\\": "Classes/"
+        }
+    },
+    "require": {
+        "typo3/cms": ">=7.6.0 <=7.6.99"
+    }
+}
