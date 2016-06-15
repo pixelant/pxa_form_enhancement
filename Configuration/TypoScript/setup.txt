@@ -1,23 +1,53 @@
-[PIDinRootline = {$plugin.tx_pxaformenhancement.settings.enableOnPages}]
-page.includeJS {
-	recaptcha {
-		disableCompression = 1
-		external = 1
-		excludeFromConcatenation = 1
-	}
-	recaptcha = https://www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&render=explicit
+plugin.tx_pxaformenhancement{
+    settings {
+        siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}
+        siteKey = {$plugin.tx_pxaformenhancement.settings.siteKey}
+    }
 }
 
-page.jsInline {
-	83 = TEXT
-	83.value (
-	var onloadCallbackRecaptcha = function() {
-        grecaptcha.render('g-recaptcha', {
-          'sitekey' : '{$plugin.tx_pxaformenhancement.settings.siteKey}'
-        });
-    };
-)
-}
+plugin.tx_form {
+    settings {
+        registeredElements {
+            RECAPTCHA {
+                htmlAttributes {
+                    10 = id
+                    20 = class
+                    30 = name
+                }
 
-plugin.tx_pxaformenhancement.settings.siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}
-[global]
+                htmlAttributesUsedByTheViewHelperDirectly < .htmlAttributes
+                defaultHtmlAttributeValues {
+                    id = g-recaptcha
+                    class = g-recaptcha
+                }
+
+                partialPath = FlatElements/Recaptcha
+
+                visibleInShowAction = 1
+                visibleInConfirmationAction = 0
+                visibleInMail = 0
+            }
+        }
+
+        registeredValidators {
+            recaptcha {
+                className = Pixelant\PxaFormEnhancement\Validation\RecaptchaValidator
+            }
+        }
+    }
+
+    view {
+        partialRootPaths {
+            50 = EXT:pxa_form_enhancement/Resources/Private/Form/Partials/
+        }
+
+        elementPartials {
+            RECAPTCHA {
+                10 {
+                    displayName => Default
+                    partialPath => FlatElements/Recaptcha
+                }
+            }
+        }
+    }
+}

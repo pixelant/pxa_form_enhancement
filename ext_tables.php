@@ -7,3 +7,7 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_pxaformenhancement_domain_model_form', 'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_csh_tx_pxaformenhancement_domain_model_form.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_pxaformenhancement_domain_model_form');
+
+
+# register hook
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['form']['hooks']['renderWizard'][$_EXTKEY] = 'Pixelant\PxaFormEnhancement\Hooks\WizardViewHook->renderHook';

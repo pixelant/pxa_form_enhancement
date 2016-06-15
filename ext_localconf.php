@@ -3,6 +3,8 @@ if (!defined('TYPO3_MODE')) {
   die ('Access denied.');
 }
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:pxa_form_enhancement/Configuration/TypoScript/PageTS/FormWizard.ts">');
+
 /*$initXlasses = function() {
     $classToXclass = [
         'TYPO3\CMS\Form\Domain\Factory\TypoScriptFactory' => [

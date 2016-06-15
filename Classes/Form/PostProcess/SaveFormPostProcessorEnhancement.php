@@ -45,7 +45,7 @@ use TYPO3\CMS\Form\PostProcess\AbstractPostProcessor;
 /**
  * Save form
  */
-class SaveForm extends AbstractPostProcessor implements PostProcessorInterface {
+class SaveFormPostProcessorEnhancement extends AbstractPostProcessor implements PostProcessorInterface {
 
     /**
      * extension name

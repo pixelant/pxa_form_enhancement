@@ -15,6 +15,22 @@
 			<trans-unit id="tx_pxaformenhancement_domain_model_form.form_data">
 				<source>Form Data</source>
 			</trans-unit>
+
+            <trans-unit id="postprocessor_saveForm">
+                <source>Save form</source>
+            </trans-unit>
+            <trans-unit id="postprocessor_properties_pid">
+                <source>Pid</source>
+            </trans-unit>
+            <trans-unit id="postprocessor_properties_defaultName">
+                <source>Record name</source>
+            </trans-unit>
+            <trans-unit id="postprocessor_properties_uploadFolder">
+                <source>Upload folder</source>
+            </trans-unit>
+            <trans-unit id="postprocessor_properties_storageUid">
+                <source>Default storage</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

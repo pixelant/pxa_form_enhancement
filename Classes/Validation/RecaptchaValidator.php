@@ -6,13 +6,43 @@
  * Time: 13:55
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Validation;
+namespace Pixelant\PxaFormEnhancement\Validation;
 
 
+use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Http\HttpRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class RecaptchaValidator extends \TYPO3\CMS\Form\Validation\AbstractValidator {
+/***************************************************************
+ *
+ *  Copyright notice
+ *
+ *  (c) 2016 Andriy Oprysko <andriy@pixelant.se>, Pixelant
+ *
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Class RecaptchaValidator
+ * @package Pixelant\PxaFormEnhancement\Validation
+ */
+class RecaptchaValidator extends \TYPO3\CMS\Form\Domain\Validator\AbstractValidator {
     
     /**
      * Constant for localisation
@@ -24,14 +54,13 @@ class RecaptchaValidator extends \TYPO3\CMS\Form\Validation\AbstractValidator {
     /**
      * Returns TRUE if recaptcha is no robot
      *
-     * @return boolean
-     * @see \TYPO3\CMS\Form\Validation\ValidatorInterface::isValid()
+     * @param mixed $value Recaptcha doesn't have value
+     * @return void
      */
-    public function isValid() {
+    public function isValid($value = NULL) {
         $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
-        $siteSecret = isset($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxat3formrecaptcha.']['settings.']['siteSecret']) ?
-            $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxat3formrecaptcha.']['settings.']['siteSecret'] : NULL;
-
+        $configuration = ConfigurationUtility::getConfiguration();
+        $siteSecret = $configuration['siteSecret'];
 
         if($recaptchaCode && $siteSecret) {
             /** @var HttpRequest $httpRequest */
@@ -47,13 +76,30 @@ class RecaptchaValidator extends \TYPO3\CMS\Form\Validation\AbstractValidator {
                 if ($response->getStatus() === 200) {
                     $recaptchaResult = json_decode($response->getBody(), TRUE);
 
-                    return $recaptchaResult['success'];
+                    if($recaptchaResult['success']) {
+                        //exit if success
+                       return;
+                    }
                 }
             } catch (\Exception $e) {
                 // will be not valid
             }
         }
 
-        return FALSE;
+        $this->addErrorMessage();
+    }
+
+    /**
+     * add error message
+     */
+    protected function addErrorMessage() {
+        $this->addError(
+            $this->renderMessage(
+                $this->options['errorMessage'][0],
+                $this->options['errorMessage'][1],
+                'error'
+            ),
+            1465905014
+        );
     }
 }
