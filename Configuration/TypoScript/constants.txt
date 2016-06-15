@@ -1,0 +1,14 @@
+# Settings for recaptcha
+plugin.tx_pxat3formrecaptcha {
+	# customsubcategory=recaptcha=Recaptcha configuration
+	settings {
+		# cat=plugin.tx_pxat3formrecaptcha/recaptcha/010; type=string; label=Enable on pages (comma separated)
+		enableOnPages = 0
+
+		# cat=plugin.tx_pxat3formrecaptcha/recaptcha/015; type=string; label=Site key
+		siteKey =
+
+		# cat=plugin.tx_pxat3formrecaptcha/recaptcha/020; type=string; label=Site secret
+		siteSecret =
+	}
+}
