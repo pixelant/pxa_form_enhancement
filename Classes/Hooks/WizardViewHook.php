@@ -63,6 +63,7 @@ class WizardViewHook {
      */
     public function renderHook($params, WizardView $wizardView) {
         $this->loadProcessorJsFiles();
+        $this->loadCss();
         $this->loadLocalization();
     }
 
@@ -70,7 +71,17 @@ class WizardViewHook {
      * @return void
      */
     protected function loadProcessorJsFiles() {
-        $this->pageRenderer->addJsFile(ExtensionManagementUtility::extRelPath('pxa_form_enhancement') . 'Resources/Public/JavaScript/Wizard/SaveForm.js', 'text/javascript', true, false);
+        $baseUrl = ExtensionManagementUtility::extRelPath('pxa_form_enhancement');
+        $jsFiles = [
+            $baseUrl . 'Resources/Public/JavaScript/Wizard/PostProcessor/SaveForm.js',
+            $baseUrl . 'Resources/Public/JavaScript/Wizard/Elements/Basic.js',
+            $baseUrl . 'Resources/Public/JavaScript/Wizard/Elements/Recaptcha.js',
+            $baseUrl . 'Resources/Public/JavaScript/Wizard/Validation/Recaptcha.js'
+        ];
+
+        foreach ($jsFiles as $file) {
+            $this->pageRenderer->addJsFile($file, 'text/javascript', true, false);
+        }
     }
 
     /**
@@ -79,6 +90,25 @@ class WizardViewHook {
     protected function loadLocalization() {
         $wizardLabels = $this->getLanguageService()->includeLLFile('EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf', false, true);
         $this->pageRenderer->addInlineLanguageLabelArray($wizardLabels['default']);
+    }
+
+    /**
+     * Load the necessary css
+     *
+     * This will only be done when the referenced record is available
+     *
+     * @return void
+     */
+    protected function loadCss() {
+        $baseUrl = ExtensionManagementUtility::extRelPath('pxa_form_enhancement');
+        $cssFiles = [
+            $baseUrl . 'Resources/Public/Css/Wizard/basic.css'
+        ];
+
+        // Load the wizards css
+        foreach ($cssFiles as $cssFile) {
+            $this->pageRenderer->addCssFile($cssFile, 'stylesheet', 'all', '', false, false);
+        }
     }
 
     /**
