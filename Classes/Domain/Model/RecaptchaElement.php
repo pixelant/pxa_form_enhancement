@@ -6,7 +6,7 @@
  * Time: 9:59
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Domain\Model;
+namespace Pixelant\PxaFormEnhancement\Domain\Model;
 
 
 class RecaptchaElement extends \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement {

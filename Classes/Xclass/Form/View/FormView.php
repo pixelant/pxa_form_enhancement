@@ -6,10 +6,10 @@
  * Time: 10:47
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Form\View;
+namespace Pixelant\PxaFormEnhancement\Xclass\Form\View;
 
 
-class FormView extends \Pixelant\PxaT3formRecaptcha\Xclass\Form\View\Element\ContainerElementView {
+class FormView extends \Pixelant\PxaFormEnhancement\Xclass\Form\View\Element\ContainerElementView {
 
     /**
      * @var string

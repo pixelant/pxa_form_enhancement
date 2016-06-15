@@ -6,7 +6,7 @@
  * Time: 14:19
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Form\View\Element;
+namespace Pixelant\PxaFormEnhancement\Xclass\Form\View\Element;
 
 
 class AbstractElementView extends \TYPO3\CMS\Form\View\Form\Element\AbstractElementView {

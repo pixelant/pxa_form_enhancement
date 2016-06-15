@@ -1,0 +1,25 @@
+{namespace pxa=Pixelant\PxaFormEnhancement\ViewHelpers}
+
+<f:if condition="{model.showElement}">
+    <f:format.raw>{model.layout.elementOuterWrap.0}</f:format.raw>
+    <div class="form-group">
+        <div class="col-sm-3 control-label">
+            {model.additionalArguments.label}
+            <f:if condition="{model.mandatoryValidationMessages}">
+                <f:for each="{model.mandatoryValidationMessages}" as="mandatoryValidationMessage">
+                    <span class="icons icon-t3-mandatory">{mandatoryValidationMessage}</span>
+                </f:for>
+            </f:if>
+        </div>
+        <div class="col-sm-5">
+            <div class="{model.additionalArguments.class}" id="{model.additionalArguments.id}"></div>
+            <f:if condition="{model.validationErrorMessages}">
+                <f:for each="{model.validationErrorMessages}" as="validationErrorMessage">
+                    <p class="text-danger">{validationErrorMessage}</p>
+                </f:for>
+            </f:if>
+        </div>
+    </div>
+    <pxa:initRecaptcha recaptcha="{model}"/>
+    <f:format.raw>{model.layout.elementOuterWrap.1}</f:format.raw>
+</f:if>

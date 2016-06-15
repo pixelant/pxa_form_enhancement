@@ -6,9 +6,10 @@
  * Time: 13:55
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Validation;
+namespace Pixelant\PxaFormEnhancement\Validation;
 
 
+use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Http\HttpRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -29,9 +30,8 @@ class RecaptchaValidator extends \TYPO3\CMS\Form\Validation\AbstractValidator {
      */
     public function isValid() {
         $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
-        $siteSecret = isset($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxat3formrecaptcha.']['settings.']['siteSecret']) ?
-            $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxat3formrecaptcha.']['settings.']['siteSecret'] : NULL;
-
+        $configuration = ConfigurationUtility::getConfiguration();
+        $siteSecret = $configuration['siteSecret'];
 
         if($recaptchaCode && $siteSecret) {
             /** @var HttpRequest $httpRequest */

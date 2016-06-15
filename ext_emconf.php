@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Pxa TYPO3 Form Recaptcha',
-	'description' => 'Allow to add recaptcha to TYPO3 form',
+	'title' => 'Pxa Form Enhancement',
+	'description' => 'Allow to add recaptcha to TYPO3 form and save form post processor',
 	'category' => 'plugin',
 	'author' => 'Andriy',
 	'author_email' => 'andriy@pixelant.se',
@@ -30,8 +30,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '6.2',
-            'form' => ''
+			'typo3' => '6.2.0-6.2.99'
 		),
 		'conflicts' => array(
 		),
@@ -39,5 +38,3 @@ $EM_CONF[$_EXTKEY] = array(
 		),
 	),
 );
-
-?>

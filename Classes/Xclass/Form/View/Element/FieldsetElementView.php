@@ -6,7 +6,7 @@
  * Time: 11:46
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Form\View\Element;
+namespace Pixelant\PxaFormEnhancement\Xclass\Form\View\Element;
 
 
 class FieldsetElementView extends ContainerElementView {

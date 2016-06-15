@@ -2,50 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: anjey
- * Date: 25.02.16
- * Time: 9:52
+ * Date: 15.06.16
+ * Time: 14:04
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Form\Domain\Factory;
+namespace Pixelant\PxaFormEnhancement\Xclass\Form\Domain\Factory;
 
 
-use Pixelant\PxaT3formRecaptcha\Xclass\Utility\FormUtility;
+use Pixelant\PxaFormEnhancement\Xclass\Utility\FormUtility;
 
 class TypoScriptFactory extends \TYPO3\CMS\Form\Domain\Factory\TypoScriptFactory {
-
-    /**
-     * Create element by loading class
-     * and instantiating the object
-     *
-     * @param string $class Type of element
-     * @param array $arguments Configuration array
-     * @return \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement
-     * @throws \InvalidArgumentException
-     */
-    public function createElement($class, array $arguments = array()) {
-        $class = strtolower((string) $class);
-        if ($class === 'form') {
-            $className = 'TYPO3\\CMS\\Form\\Domain\\Model\\' . ucfirst($class);
-        } elseif($class === 'recaptcha') {
-            $className = 'Pixelant\\PxaT3formRecaptcha\\Domain\\Model\\RecaptchaElement';
-        } else {
-            $className = 'TYPO3\\CMS\\Form\\Domain\\Model\\Element\\' . ucfirst($class) . 'Element';
-        }
-        /** @var $object \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement */
-        $object = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
-        if ($object->getElementType() === \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement::ELEMENT_TYPE_CONTENT) {
-            $object->setData($arguments['cObj'], $arguments['cObj.']);
-        } elseif ($object->getElementType() === \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement::ELEMENT_TYPE_PLAIN) {
-            $object->setProperties($arguments);
-        } elseif ($object->getElementType() === \TYPO3\CMS\Form\Domain\Model\Element\AbstractElement::ELEMENT_TYPE_FORM) {
-            $object->setData($arguments['data']);
-            $this->reconstituteElement($object, $arguments);
-        } else {
-            throw new \InvalidArgumentException('Element type "' . $object->getElementType() . '" is not supported.', 1333754878);
-        }
-
-        return $object;
-    }
 
     /**
      * Create and add element by type.

@@ -6,7 +6,7 @@
  * Time: 10:10
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Form\View\Element;
+namespace Pixelant\PxaFormEnhancement\Xclass\Form\View\Element;
 
 
 class ContainerElementView extends \TYPO3\CMS\Form\View\Form\Element\ContainerElementView {
@@ -22,9 +22,9 @@ class ContainerElementView extends \TYPO3\CMS\Form\View\Form\Element\ContainerEl
         $class = \TYPO3\CMS\Form\Utility\FormUtility::getInstance()->getLastPartOfClassName($modelChild);
 
         if(strtolower($class) === 'recaptcha') {
-            $className = 'Pixelant\\PxaT3formRecaptcha\\Xclass\\Form\\View\Element\\RecaptchaElementView';
+            $className = 'Pixelant\PxaFormEnhancement\Xclass\Form\View\Element\RecaptchaElementView';
         } else {
-            $className = 'TYPO3\\CMS\\Form\\View\\Form\\Element\\' . ucfirst($class) . 'ElementView';
+            $className = 'TYPO3\CMS\Form\View\Form\Element\\' . ucfirst($class) . 'ElementView';
         }
 
         if (class_exists($className)) {

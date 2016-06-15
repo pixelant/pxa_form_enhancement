@@ -1,5 +1,4 @@
-[PIDinRootline = {$plugin.tx_pxat3formrecaptcha.settings.enableOnPages}]
-page.includeJS {
+page.includeJSFooter {
 	recaptcha {
 		disableCompression = 1
 		external = 1
@@ -8,16 +7,15 @@ page.includeJS {
 	recaptcha = https://www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&render=explicit
 }
 
-page.jsInline {
-	83 = TEXT
-	83.value (
+page.jsFooterInline {
+	831 = TEXT
+    831.value (
 	var onloadCallbackRecaptcha = function() {
         grecaptcha.render('g-recaptcha', {
-          'sitekey' : '{$plugin.tx_pxat3formrecaptcha.settings.siteKey}'
+          'sitekey' : '{$plugin.tx_pxaformenhancement.settings.siteKey}'
         });
     };
 )
 }
 
-plugin.tx_pxat3formrecaptcha.settings.siteSecret = {$plugin.tx_pxat3formrecaptcha.settings.siteSecret}
-[global]
+plugin.tx_pxaformenhancement.settings.siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}

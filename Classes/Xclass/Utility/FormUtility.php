@@ -6,7 +6,7 @@
  * Time: 12:24
  */
 
-namespace Pixelant\PxaT3formRecaptcha\Xclass\Utility;
+namespace Pixelant\PxaFormEnhancement\Xclass\Utility;
 
 
 class FormUtility extends \TYPO3\CMS\Form\Utility\FormUtility {
