@@ -34,7 +34,7 @@ namespace TYPO3\CMS\Form\Domain\Model\Element;
      ***************************************************************/
 
 /**
- * just for form extension to find RecaptchaJsonElement class
+ * just for form extension to find RecaptchaElement class
  *
  * Class RecaptchaElement
  */

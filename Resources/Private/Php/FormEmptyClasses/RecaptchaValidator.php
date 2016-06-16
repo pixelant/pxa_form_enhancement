@@ -33,7 +33,7 @@ namespace TYPO3\CMS\Form\Validation;
      ***************************************************************/
 
 /**
- * just for form extension to find RecaptchaJsonElement class
+ * just for form extension to find RecaptchaValidator class
  *
  * Class RecaptchaValidator
  */
