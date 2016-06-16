@@ -88,9 +88,14 @@ class SaveFormPostProcessor implements \TYPO3\CMS\Form\PostProcess\PostProcessor
     /**
      * objectManager
      *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
+
+    /**
+     * @var \TYPO3\CMS\Form\Request
+     */
+    protected $requestHandler;
 
     /**
      * Constructor
