@@ -70,31 +70,28 @@ class RecaptchaValidator extends \TYPO3\CMS\Form\Domain\Validator\AbstractValida
                 /** @var RequestFactory $httpRequest */
                 $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
-                try {
-                    /** @var \Psr\Http\Message\ResponseInterface $response */
-                    $response = $requestFactory->request(
-                        'https://www.google.com/recaptcha/api/siteverify',
-                        'POST',
-                        [
-                            'form_params' => [
-                                'response' => $recaptchaCode,
-                                'secret' => $siteSecret,
-                                'remoteip' => $_SERVER['REMOTE_ADDR']
-                            ]
+                /** @var \Psr\Http\Message\ResponseInterface $response */
+                $response = $requestFactory->request(
+                    'https://www.google.com/recaptcha/api/siteverify',
+                    'POST',
+                    [
+                        'form_params' => [
+                            'response' => $recaptchaCode,
+                            'secret' => $siteSecret,
+                            'remoteip' => $_SERVER['REMOTE_ADDR']
                         ]
-                    );
+                    ]
+                );
 
-                    if ($response->getStatusCode() === 200) {
-                        $recaptchaResult = json_decode($response->getBody(), TRUE);
+                if ($response->getStatusCode() === 200) {
+                    $recaptchaResult = json_decode($response->getBody(), TRUE);
 
-                        if ($recaptchaResult['success']) {
-                            //exit if success
-                            return;
-                        }
+                    if ($recaptchaResult['success']) {
+                        // exit if success
+                        return;
                     }
-                } catch (\Exception $e) {
-                    // will be not valid
                 }
+
             }
 
             $this->addErrorMessage();

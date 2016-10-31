@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anjey
- * Date: 28.10.16
- * Time: 13:17
- */
 
 namespace Pixelant\PxaFormEnhancement\View\Wizard\Element;
 
@@ -13,10 +7,10 @@ namespace Pixelant\PxaFormEnhancement\View\Wizard\Element;
  * Class FormWizardElement
  * @package Pixelant\PxaFormEnhancement\View\Wizard\Element
  */
-class FormWizardElement extends \TYPO3\CMS\Form\View\Wizard\Element\FormWizardElement  {
+class FormWizardElement extends \TYPO3\CMS\Form\View\Wizard\Element\FormWizardElement {
 
     /**
-     * changes for render form wizard
+     * Changes for render form wizard
      *
      * @return array
      */
@@ -27,7 +21,7 @@ class FormWizardElement extends \TYPO3\CMS\Form\View\Wizard\Element\FormWizardEl
         foreach ($this->resultArray['requireJsModules'] as $key => $requireJsModule) {
             $requireJsModuleName = key($requireJsModule);
 
-            if($requireJsModuleName === 'TYPO3/CMS/Form/Wizard') {
+            if ($requireJsModuleName === 'TYPO3/CMS/Form/Wizard') {
                 $this->resultArray['requireJsModules'][$key] = ['TYPO3/CMS/PxaFormEnhancement/Wizard/Wizard' => $requireJsModule[$requireJsModuleName]];
             }
         }

@@ -32,7 +32,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class InitRecaptchaViewHelper extends  \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class InitRecaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
     /**
      * js to init recaptcha
@@ -53,7 +53,7 @@ class InitRecaptchaViewHelper extends  \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
     public function render(\TYPO3\CMS\Form\Domain\Model\Element $recaptcha) {
         $configuration = ConfigurationUtility::getConfiguration();
 
-        if($configuration['siteKey'] && $configuration['siteSecret']) {
+        if ($configuration['siteKey'] && $configuration['siteSecret']) {
             /** @var PageRenderer $pageRenderer */
             $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
             $pageRenderer->addJsFooterInlineCode('pxa_form_enhancement', sprintf(self::JS_INLINE, $recaptcha->getAdditionalArgument('id'), $configuration['siteKey']), false, false);
