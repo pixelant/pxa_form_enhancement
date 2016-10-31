@@ -32,12 +32,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class InitRecaptchaViewHelper extends  \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class InitRecaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
     /**
      * js to init recaptcha
      */
-    const JS_INLINE = 'var onloadCallbackRecaptcha = function() {grecaptcha.render(\'{id}\', {\'sitekey\': \'{sitekey}\'});};';
+    const JS_INLINE = 'var onloadCallbackRecaptcha = function() {grecaptcha.render(\'%s\', {\'sitekey\': \'%s\'});};';
 
     /**
      * recaptcha url
@@ -53,10 +53,10 @@ class InitRecaptchaViewHelper extends  \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
     public function render(\TYPO3\CMS\Form\Domain\Model\Element $recaptcha) {
         $configuration = ConfigurationUtility::getConfiguration();
 
-        if($configuration['siteKey'] && $configuration['siteSecret']) {
+        if ($configuration['siteKey'] && $configuration['siteSecret']) {
             /** @var PageRenderer $pageRenderer */
             $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-            $pageRenderer->addJsFooterInlineCode('pxa_form_enhancement', str_replace(['{id}', '{sitekey}'], [$recaptcha->getAdditionalArgument('id'), $configuration['siteKey']], self::JS_INLINE), false, false);
+            $pageRenderer->addJsFooterInlineCode('pxa_form_enhancement', sprintf(self::JS_INLINE, $recaptcha->getAdditionalArgument('id'), $configuration['siteKey']), false, false);
             $pageRenderer->addJsFooterFile(
                 self::RECAPTCHA_URL,
                 'text/javascript',

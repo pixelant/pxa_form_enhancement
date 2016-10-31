@@ -19,9 +19,6 @@ $init = function ($_EXTKEY) {
             'className' => $xClass
         ];
     }
-
-    # register hook
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['form']['hooks']['renderWizard'][$_EXTKEY] = 'Pixelant\PxaFormEnhancement\Hooks\WizardViewHook->renderHook';
 };
 
 $init($_EXTKEY);

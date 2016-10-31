@@ -11,6 +11,7 @@ namespace Pixelant\PxaFormEnhancement\Validation;
 
 use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Http\HttpRequest;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -43,9 +44,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Pixelant\PxaFormEnhancement\Validation
  */
 class RecaptchaValidator extends \TYPO3\CMS\Form\Domain\Validator\AbstractValidator {
-    
+
     /**
-     * Constant for localisation
+     * Constant for localization
      *
      * @var string
      */
@@ -58,35 +59,43 @@ class RecaptchaValidator extends \TYPO3\CMS\Form\Domain\Validator\AbstractValida
      * @return void
      */
     public function isValid($value = NULL) {
-        $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
-        $configuration = ConfigurationUtility::getConfiguration();
-        $siteSecret = $configuration['siteSecret'];
+        // skip recaptcha validation if it's from confirmation page
+        $post = GeneralUtility::_POST('tx_form_form');
+        if (!$post['confirmation-true']) {
+            $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
+            $configuration = ConfigurationUtility::getConfiguration();
+            $siteSecret = $configuration['siteSecret'];
 
-        if($recaptchaCode && $siteSecret) {
-            /** @var HttpRequest $httpRequest */
-            $httpRequest = GeneralUtility::makeInstance('TYPO3\CMS\Core\Http\HttpRequest', 'https://www.google.com/recaptcha/api/siteverify', HttpRequest::METHOD_POST);
-            $httpRequest->addPostParameter('response', $recaptchaCode)
-                        ->addPostParameter('secret', $siteSecret)
-                        ->addPostParameter('remoteip', $_SERVER['REMOTE_ADDR']);
+            if ($recaptchaCode && $siteSecret) {
+                /** @var RequestFactory $httpRequest */
+                $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
-            try {
-                /** @var \HTTP_Request2_Response $response */
-                $response = $httpRequest->send();
+                /** @var \Psr\Http\Message\ResponseInterface $response */
+                $response = $requestFactory->request(
+                    'https://www.google.com/recaptcha/api/siteverify',
+                    'POST',
+                    [
+                        'form_params' => [
+                            'response' => $recaptchaCode,
+                            'secret' => $siteSecret,
+                            'remoteip' => $_SERVER['REMOTE_ADDR']
+                        ]
+                    ]
+                );
 
-                if ($response->getStatus() === 200) {
+                if ($response->getStatusCode() === 200) {
                     $recaptchaResult = json_decode($response->getBody(), TRUE);
 
-                    if($recaptchaResult['success']) {
-                        //exit if success
-                       return;
+                    if ($recaptchaResult['success']) {
+                        // exit if success
+                        return;
                     }
                 }
-            } catch (\Exception $e) {
-                // will be not valid
-            }
-        }
 
-        $this->addErrorMessage();
+            }
+
+            $this->addErrorMessage();
+        }
     }
 
     /**

@@ -16,13 +16,15 @@ return [
 			'endtime' => 'endtime',
 		],
 		'searchFields' => 'name,attachment,form_data,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pxa_form_enhancement') . 'Resources/Public/Icons/tx_pxaformenhancement_domain_model_form.gif'
+		'iconfile' => 'EXT:pxa_form_enhancement/Resources/Public/Icons/tx_pxaformenhancement_domain_model_form.gif'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'hidden, name, attachment, form_data',
 	],
 	'types' => [
-		'1' => ['showitem' => 'hidden;;1, name, attachment, form_data, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'hidden, --palette--;;1, name, attachment, form_data, 
+		        --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
+			    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.access, starttime, endtime']
 	],
 	'palettes' => [
 		'1' => ['showitem' => ''],

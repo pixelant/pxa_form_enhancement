@@ -17,7 +17,7 @@ mod.wizards {
                     showRules := addToList( recaptcha)
                     rules {
                         recaptcha {
-                            showProperties = message, error, breakOnError, showMessage
+                            showProperties = message, error, showMessage
                         }
                     }
                 }

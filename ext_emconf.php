@@ -11,30 +11,29 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-	'title' => 'Pxa Form Enhancement',
-	'description' => 'Allow to add recaptcha to TYPO3 form and save form post processor',
-	'category' => 'fe',
-	'author' => 'Andriy Oprysko',
-	'author_email' => 'andriy@pixelant.se',
-	'state' => 'stable',
-	'internal' => '',
-	'uploadfolder' => '1',
-	'createDirs' => '',
-	'clearCacheOnLoad' => 1,
-	'version' => '1.0.1',
-	'constraints' => [
-		'depends' => [
-			'typo3' => '7.6.0-7.6.99',
-		],
-		'conflicts' => [
-		],
-		'suggests' => [
-		],
-	],
-    'autoload' =>
-        [
-            'classmap' => [
-                'Classes',
-            ]
+    'title' => 'Pxa Form Enhancement',
+    'description' => 'Allow to add recaptcha to TYPO3 form and save form post processor',
+    'category' => 'fe',
+    'author' => 'Andriy Oprysko',
+    'author_email' => 'andriy@pixelant.se',
+    'state' => 'stable',
+    'internal' => '',
+    'uploadfolder' => '0',
+    'createDirs' => '',
+    'clearCacheOnLoad' => 1,
+    'version' => '2.0.0',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '8.0.0-8.4.99',
         ],
+        'conflicts' => [
+        ],
+        'suggests' => [
+        ],
+    ],
+    'autoload' => [
+        'classmap' => [
+            'Classes'
+        ]
+    ]
 ];
