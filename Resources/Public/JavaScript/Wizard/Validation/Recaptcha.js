@@ -24,7 +24,6 @@ TYPO3.Form.Wizard.Viewport.Left.Options.Forms.Validation.Recaptcha = Ext.extend(
         Ext.apply(this, {
             configuration: {
                 showMessage: 1,
-                breakOnError: 1,
                 message: TYPO3.l10n.localize('tx_form_system_validate_recaptcha.message'),
                 error: TYPO3.l10n.localize('tx_form_system_validate_recaptcha.error')
             }
