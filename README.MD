@@ -1,7 +1,7 @@
 # Pixelant
 [![TYPO3](https://img.shields.io/badge/TYPO3-8.4.0-orange.svg?style=flat-square)](https://typo3.org/)
 
-# Pixelant Form Enhancem (pxa_form_enhancement) #
+# Pixelant Form Enhancement (pxa_form_enhancement) #
 
 ## What’s it is doing? ##
 This extension extend standard TYPO3 form with next features:
@@ -18,7 +18,6 @@ Add reCAPTCHA site key and site secret constants. You can get these keys on [off
 
 ```
 #!typoscript
-
 
 plugin.tx_pxaformenhancement.settings.siteKey = siteKeyHere
 plugin.tx_pxaformenhancement.settings.siteSecret = siteSecret
