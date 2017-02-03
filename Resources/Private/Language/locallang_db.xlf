@@ -37,6 +37,9 @@
             <trans-unit id="postprocessor_properties_storageUid">
                 <source>Default storage</source>
             </trans-unit>
+            <trans-unit id="postprocessor_properties_fieldsToSaveAsTitle">
+                <source>Use form fields as 'Record name'</source>
+            </trans-unit>
 
             <trans-unit id="tx_form_system_validate_recaptcha.message">
                 <source>Recaptcha</source>

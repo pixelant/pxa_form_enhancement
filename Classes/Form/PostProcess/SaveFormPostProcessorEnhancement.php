@@ -148,6 +148,7 @@ class SaveFormPostProcessorEnhancement extends AbstractPostProcessor implements 
 
         $this->form = $form;
         $this->typoScript = $typoScript;
+
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         $this->formModel = $this->objectManager->get(Form::class);
@@ -161,13 +162,43 @@ class SaveFormPostProcessorEnhancement extends AbstractPostProcessor implements 
 	 * @return string HTML message from this processor
 	 */
 	public function process() {
-		$formElements = $this->form->getChildElements();
+        $fieldsToProcessFromTS = array();
+        $fieldsToProcess = array();
+        if( trim($this->typoScript["fieldsToSaveAsTitle"]) ) {
+            $fieldsToProcessFromTS = explode(",", $this->typoScript["fieldsToSaveAsTitle"]);
+            $fieldsToProcess = array_map('trim', $fieldsToProcessFromTS);
+        }
+
+        $formElements = $this->form->getChildElements();
+
+        $nameFromForm = array();
+        foreach ($formElements as $formElement) {
+            if (in_array($formElement->getName(), $fieldsToProcess)) {
+                $additionalArguments = $formElement->getAdditionalArguments();
+                if ($additionalArguments['value']) {
+                    $nameFromForm[] = $additionalArguments['value'];
+                }
+            }
+        }
+
 		$count = $this->formRepository->countByPid($this->typoScript['pid']);
 		$text = '';
-
 		$this->processFields($formElements, $text);
 
-		$this->formModel->setName((empty($this->typoScript['defaultName']) ? LocalizationUtility::translate('label.newFormname',self::EXT_NAME) : $this->typoScript['defaultName']) . ' #' . ++$count);
+        $recordTitle = '';
+
+        if (!empty($this->typoScript['defaultName'])) {
+            $recordTitle .= $this->typoScript['defaultName'] . ' ';
+        }
+        if (is_array($nameFromForm) && count($nameFromForm)) {
+            $recordTitle .= implode(" ", $nameFromForm) . ' #' . ++$count;
+        }
+        if ($recordTitle == '') {
+            $recordTitle = LocalizationUtility::translate('label.newFormname',self::EXT_NAME) . ' #' . ++$count;
+        }
+        $this->formModel->setName($recordTitle);
+
+
 		$this->formModel->setFormData($text);
 		$this->formModel->setPid($this->typoScript['pid']);
 

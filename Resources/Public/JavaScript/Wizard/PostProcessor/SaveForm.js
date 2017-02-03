@@ -80,6 +80,19 @@ TYPO3.Form.Wizard.Viewport.Left.Form.PostProcessors.SaveForm = Ext.extend(TYPO3.
                         }
                     });
                     break;
+                case 'fieldsToSaveAsTitle':
+                    formItems.push({
+                        fieldLabel: TYPO3.l10n.localize('postprocessor_properties_fieldsToSaveAsTitle'),
+                        name: 'fieldsToSaveAsTitle',
+                        allowBlank: true,
+                        listeners: {
+                            'triggerclick': {
+                                scope: this,
+                                fn: this.storeValue
+                            }
+                        }
+                    });
+                    break;
             }
         }, this);
 
