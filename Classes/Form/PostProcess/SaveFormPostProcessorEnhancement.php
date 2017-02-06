@@ -161,14 +161,14 @@ class SaveFormPostProcessorEnhancement extends AbstractPostProcessor implements 
 	 * @return string HTML message from this processor
 	 */
 	public function process() {
-		$fieldsToProcess = array();
-		if(trim($this->typoScript["fieldsToSaveAsTitle"])) {
+		$fieldsToProcess = [];
+		if (trim($this->typoScript["fieldsToSaveAsTitle"])) {
 			$fieldsToProcess = GeneralUtility::trimExplode(",", $this->typoScript["fieldsToSaveAsTitle"]);
 		}
 
 		$formElements = $this->form->getChildElements();
 
-		$nameFromForm = array();
+		$nameFromForm = [];
 		foreach ($formElements as $formElement) {
 			if (in_array($formElement->getName(), $fieldsToProcess)) {
 				$additionalArguments = $formElement->getAdditionalArguments();
