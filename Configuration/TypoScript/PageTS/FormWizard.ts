@@ -6,7 +6,7 @@ mod.wizards {
                     showPostProcessors := addToList( saveForm)
                     postProcessors {
                         saveForm {
-                            showProperties = pid, defaultName, uploadFolder, storageUid
+                            showProperties = pid, defaultName, uploadFolder, storageUid, fieldsToSaveAsTitle
                         }
                     }
                 }

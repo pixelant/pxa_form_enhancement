@@ -161,13 +161,41 @@ class SaveFormPostProcessorEnhancement extends AbstractPostProcessor implements 
 	 * @return string HTML message from this processor
 	 */
 	public function process() {
+		$fieldsToProcess = [];
+		if (trim($this->typoScript["fieldsToSaveAsTitle"])) {
+			$fieldsToProcess = GeneralUtility::trimExplode(",", $this->typoScript["fieldsToSaveAsTitle"]);
+		}
+
 		$formElements = $this->form->getChildElements();
+
+		$nameFromForm = [];
+		foreach ($formElements as $formElement) {
+			if (in_array($formElement->getName(), $fieldsToProcess)) {
+				$additionalArguments = $formElement->getAdditionalArguments();
+				if ($additionalArguments['value']) {
+					$nameFromForm[] = $additionalArguments['value'];
+				}
+			}
+		}
+
 		$count = $this->formRepository->countByPid($this->typoScript['pid']);
 		$text = '';
-
 		$this->processFields($formElements, $text);
 
-		$this->formModel->setName((empty($this->typoScript['defaultName']) ? LocalizationUtility::translate('label.newFormname',self::EXT_NAME) : $this->typoScript['defaultName']) . ' #' . ++$count);
+		$recordTitle = '';
+
+		if (!empty($this->typoScript['defaultName'])) {
+			$recordTitle .= $this->typoScript['defaultName'] . ' ';
+		}
+		if (is_array($nameFromForm) && count($nameFromForm)) {
+			$recordTitle .= implode(" ", $nameFromForm) . ' #' . ++$count;
+		}
+		if ($recordTitle == '') {
+			$recordTitle = LocalizationUtility::translate('label.newFormname',self::EXT_NAME) . ' #' . ++$count;
+		}
+		$this->formModel->setName($recordTitle);
+
+
 		$this->formModel->setFormData($text);
 		$this->formModel->setPid($this->typoScript['pid']);
 
