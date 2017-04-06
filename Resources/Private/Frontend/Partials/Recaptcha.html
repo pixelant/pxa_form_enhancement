@@ -4,13 +4,10 @@
       data-namespace-typo3-fluid="true">
 <formvh:renderRenderable renderable="{element}">
     <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
-        <f:form.textfield
+        <f:form.hidden
                 property="{element.identifier}"
                 id="{element.uniqueIdentifier}"
-                value="recaptcha"
-                class="{element.properties.elementClassAttribute} hidden"
-                errorClass="{element.properties.elementErrorClassAttribute}"
-                additionalAttributes="{style: 'display:none;visibility: hidden;'}"
+                value="{f:translate(key: 'fe.recaptcha.passCheck', extensionName: 'PxaFormEnhancement')}"
         />
         <div class="{element.properties.elementClassAttribute}" id="#{element.uniqueIdentifier}"></div>
     </f:render>

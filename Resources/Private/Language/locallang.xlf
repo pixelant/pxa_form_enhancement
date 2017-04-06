@@ -9,6 +9,9 @@
             <trans-unit id="fe.error.recaptcha">
                 <source>You didn't pass robot check. Please, try again.</source>
             </trans-unit>
+            <trans-unit id="fe.recaptcha.passCheck">
+                <source>Passed successful</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
