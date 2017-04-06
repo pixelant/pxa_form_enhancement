@@ -7,7 +7,7 @@ CREATE TABLE tx_pxaformenhancement_domain_model_form (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	name text NOT NULL,
-	attachment int(11) unsigned NOT NULL default '0',
+	attachments int(11) unsigned NOT NULL default '0',
 	form_data text NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

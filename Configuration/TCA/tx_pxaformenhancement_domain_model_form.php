@@ -18,13 +18,13 @@ return [
             'disabled' => 'hidden'
         ],
 
-        'searchFields' => 'name,attachment,form_data,',
+        'searchFields' => 'name,form_data,',
         'typeicon_classes' => [
             'default' => 'ext-pxaformenhancement-letter-icon'
         ]
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, name, attachment, form_data',
+        'showRecordFieldList' => 'hidden, name, attachments, form_data',
     ],
     'types' => [
         '1' => [
@@ -35,7 +35,7 @@ return [
         ]
     ],
     'palettes' => [
-        'main' => ['showitem' => 'name, --linebreak--, attachment, --linebreak--, form_data'],
+        'main' => ['showitem' => 'name, --linebreak--, attachments, --linebreak--, form_data'],
     ],
     'columns' => [
         'hidden' => [
@@ -54,14 +54,15 @@ return [
                 'eval' => 'trim,required'
             ]
         ],
-        'attachment' => [
+        'attachments' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_pxaformenhancement_domain_model_form.attachment',
+            'label' => $ll . 'tx_pxaformenhancement_domain_model_form.attachments',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'attachment',
+                'attachments',
                 [
                     'appearance' => [
-                        'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:media.addFileReference',
+                        'createNewRelationLinkTitle' =>
+                            'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
                         'enabledControls' => [
                             'info' => true,
                             'new' => false,
@@ -104,7 +105,7 @@ return [
 							--palette--;;filePalette'
                         ]
                     ],
-                    'maxitems' => 1
+                    'maxitems' => 99
                 ]
             ),
         ],

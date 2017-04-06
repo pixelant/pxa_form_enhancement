@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Pixelant\PxaFormEnhancement\Domain\Finishers;
 
 /*
@@ -15,11 +16,12 @@ namespace Pixelant\PxaFormEnhancement\Domain\Finishers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Pixelant\PxaFormEnhancement\Domain\Model\FileReference as AttachFileReference;
 use Pixelant\PxaFormEnhancement\Domain\Model\Form;
 use Pixelant\PxaFormEnhancement\Domain\Repository\FormRepository;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
@@ -45,9 +47,19 @@ class SaveFormFinisher extends AbstractFinisher
     ];
 
     /**
-     * @var \Pixelant\PxaFormEnhancement\Domain\Repository\FormRepository
+     * @var FormRepository
      */
     protected $formRepository;
+
+    /**
+     * @var ResourceFactory
+     */
+    protected $resourceFactory;
+
+    /**
+     * @var Form
+     */
+    protected $saveForm;
 
     /**
      * Executes this finisher
@@ -56,10 +68,12 @@ class SaveFormFinisher extends AbstractFinisher
     protected function executeInternal()
     {
         $this->formRepository = $this->objectManager->get(FormRepository::class);
+        $this->resourceFactory = $this->objectManager->get(ResourceFactory::class);
+        $this->saveForm = $this->objectManager->get(Form::class);
+
         $count = $this->formRepository->countByPid((int)$this->options['pageUid']);
 
-        /** @var Form $form */
-        $form = $this->objectManager->get(Form::class);
+
 
         $formRuntime = $this->finisherContext->getFormRuntime();
         $standaloneView = $this->initializeStandaloneView($formRuntime);
@@ -76,13 +90,53 @@ class SaveFormFinisher extends AbstractFinisher
             $translationService->setLanguage($languageBackup);
         }
 
-        $form->setFormData($message);
-        $form->setPid($this->options['pageUid']);
-        $form->setName($this->options['name'] . ' #' . ++$count);
+        $this->saveForm->setFormData($message);
+        $this->saveForm->setPid($this->options['pageUid']);
+        $this->saveForm->setName($this->options['name'] . ' #' . ++$count);
 
-        $this->formRepository->add($form);
+        $this->attachFiles($formRuntime);
+
+        $this->formRepository->add($this->saveForm);
 
         $this->objectManager->get(PersistenceManager::class)->persistAll();
+    }
+
+    /**
+     * Attach files
+     *
+     * @param FormRuntime $formRuntime
+     */
+    protected function attachFiles(FormRuntime $formRuntime)
+    {
+        $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
+
+        foreach ($elements as $element) {
+            if ($element instanceof FileUpload) {
+                $file = $formRuntime[$element->getIdentifier()];
+
+                if ($file) {
+                    /** @var AttachFileReference $attachment */
+                    $attachment = $this->objectManager->get(AttachFileReference::class);
+
+                    if ($file instanceof FileReference) {
+                        $file = $file->getOriginalResource();
+                    }
+
+                    $newFileReferenceObject = $this->resourceFactory->createFileReferenceObject(
+                        [
+                            'uid_local' => $file->getOriginalFile()->getUid(),
+                            'uid_foreign' => uniqid('NEW_'),
+                            'uid' => uniqid('NEW_')
+                        ]
+                    );
+
+                    $attachment->setOriginalResource($newFileReferenceObject);
+                    $attachment->setPid($this->options['pid']);
+
+                    $this->saveForm->addAttachment($attachment);
+                }
+            }
+        }
     }
 
     /**

@@ -28,6 +28,7 @@ namespace Pixelant\PxaFormEnhancement\Domain\Model;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Form
@@ -45,9 +46,9 @@ class Form extends AbstractEntity
     /**
      * attachment
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Pixelant\PxaFormEnhancement\Domain\Model\FileReference>
      */
-    protected $attachment = null;
+    protected $attachments;
 
     /**
      * formData
@@ -57,24 +58,63 @@ class Form extends AbstractEntity
     protected $formData = '';
 
     /**
-     * Returns the attachment
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment
+     * __construct
      */
-    public function getAttachment()
+    public function __construct()
     {
-        return $this->attachment;
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
     }
 
     /**
-     * Sets the attachment
+     * Initializes all ObjectStorage properties.
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment
      * @return void
      */
-    public function setAttachment(\TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment)
+    protected function initStorageObjects()
     {
-        $this->attachment = $attachment;
+        /**
+         * Do not modify this method!
+         * It will be rewritten on each save in the extension builder
+         * You may modify the constructor of this class instead
+         */
+        $this->attachments = new ObjectStorage();
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getAttachments(): ObjectStorage
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * @param ObjectStorage $attachments
+     */
+    public function setAttachments(ObjectStorage $attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    /**
+     * Detach file
+     *
+     * @param FileReference $fileReference
+     */
+    public function removeAttachment(FileReference $fileReference)
+    {
+        $this->attachments->detach($fileReference);
+    }
+
+    /**
+     * Attach file
+     *
+     * @param FileReference $fileReference
+     */
+    public function addAttachment(FileReference $fileReference)
+    {
+        $this->attachments->attach($fileReference);
     }
 
     /**
