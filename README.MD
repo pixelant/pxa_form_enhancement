@@ -25,7 +25,7 @@ plugin.tx_pxaformenhancement.settings.siteSecret = siteSecret
 
 ## Using reCAPTCHA ##
 
-reCAPTCHA is available as new element in list of "Advanced elements". Add it to you website form and it will appear on a site automatically.
+reCAPTCHA is available as new element in list of "Advanced elements". Add it to you website form and it will appear on a site automatically. **Don't forget to add Recatcha validator to this element**.
 
 ## Using Save form post processor ##
 
