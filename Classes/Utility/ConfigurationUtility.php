@@ -27,26 +27,51 @@ namespace Pixelant\PxaFormEnhancement\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class ConfigurationUtility
  * @package Pixelant\PxaFormEnhancement\Utility
  */
-class ConfigurationUtility {
+class ConfigurationUtility
+{
 
     /**
-     * @var array $plugin configuration
+     * Plugin configuration
+     *
+     * @var array
      */
-    static protected $configuration = NULL;
+    protected static $configuration;
 
     /**
-     * get plugin configuration
+     * Get plugin configuration
+     *
+     * @return array
      */
-    static public function getConfiguration() {
-        if(self::$configuration === NULL) {
-            self::$configuration = is_array($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxaformenhancement.']['settings.']) ? GeneralUtility::removeDotsFromTS($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_pxaformenhancement.']['settings.']) : [];
+    public static function getConfiguration()
+    {
+        if (self::$configuration === null) {
+            $configuration = self::getTSFE()->tmpl->setup;
+
+            if (isset($configuration['plugin.']['tx_pxaformenhancement.']['settings.'])
+                && is_array($configuration['plugin.']['tx_pxaformenhancement.']['settings.'])
+            ) {
+                self::$configuration = GeneralUtility::removeDotsFromTS(
+                    $configuration['plugin.']['tx_pxaformenhancement.']['settings.']
+                );
+            } else {
+                self::$configuration = [];
+            }
         }
 
         return self::$configuration;
+    }
+
+    /**
+     * @return TypoScriptFrontendController
+     */
+    public static function getTSFE()
+    {
+        return $GLOBALS['TSFE'];
     }
 }

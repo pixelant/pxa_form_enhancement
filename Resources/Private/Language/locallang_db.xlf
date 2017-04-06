@@ -1,52 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-06-13T15:37:42Z" product-name="pxa_form_enhancement">
-		<header/>
-		<body>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form">
-				<source>Form</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.attachment">
-				<source>Attachment</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.form_data">
-				<source>Form Data</source>
-			</trans-unit>
-
-            <trans-unit id="basic_recaptcha">
-                <source>Recaptcha</source>
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-06-13T15:37:42Z" product-name="pxa_form_enhancement">
+        <header/>
+        <body>
+            <trans-unit id="tx_pxaformenhancement_domain_model_form">
+                <source>Form</source>
             </trans-unit>
-            <trans-unit id="tx_form_domain_model_element_recaptcha.value">
-                <source>Recaptcha</source>
+            <trans-unit id="tx_pxaformenhancement_domain_model_form.name">
+                <source>Name</source>
             </trans-unit>
-            <trans-unit id="postprocessor_saveForm">
-                <source>Save form</source>
+            <trans-unit id="tx_pxaformenhancement_domain_model_form.attachment">
+                <source>Attachment</source>
             </trans-unit>
-            <trans-unit id="postprocessor_properties_pid">
-                <source>Pid</source>
-            </trans-unit>
-            <trans-unit id="postprocessor_properties_defaultName">
-                <source>Record name</source>
-            </trans-unit>
-            <trans-unit id="postprocessor_properties_uploadFolder">
-                <source>Upload folder</source>
-            </trans-unit>
-            <trans-unit id="postprocessor_properties_storageUid">
-                <source>Default storage</source>
+            <trans-unit id="tx_pxaformenhancement_domain_model_form.form_data">
+                <source>Form Data</source>
             </trans-unit>
 
-            <trans-unit id="tx_form_system_validate_recaptcha.message">
+            <trans-unit id="formEditor.elements.Recaptcha.label">
                 <source>Recaptcha</source>
             </trans-unit>
-            <trans-unit id="tx_form_system_validate_recaptcha.error">
-                <source>You didn't pass check, try again, please</source>
+            <trans-unit id="formEditor.elements.Recaptcha.editor.label.label">
+                <source>Label</source>
             </trans-unit>
-            <trans-unit id="validation_recaptcha">
-                <source>Recaptcha</source>
+
+            <trans-unit id="formEditor.elements.FormElement.editor.recaptchaValidator.label">
+                <source>Recaptcha validator</source>
             </trans-unit>
-		</body>
-	</file>
+            <trans-unit id="formEditor.elements.TextMixin.editor.validators.Recaptcha.label">
+                <source>Recaptcha validator</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.TextMixin.validators.Recaptcha.editor.header.label">
+                <source>Recaptcha protection</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

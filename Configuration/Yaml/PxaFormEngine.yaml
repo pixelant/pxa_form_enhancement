@@ -1,0 +1,5 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:

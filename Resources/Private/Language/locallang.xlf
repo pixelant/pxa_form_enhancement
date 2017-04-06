@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-06-13T15:37:42Z" product-name="pxa_form_enhancement">
-		<header/>
-		<body>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form">
-				<source>Form</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.attachment">
-				<source>Attachment</source>
-			</trans-unit>
-			<trans-unit id="tx_pxaformenhancement_domain_model_form.form_data">
-				<source>Form Data</source>
-			</trans-unit>
-
-            <trans-unit id="label.newFormname">
-                <source>Form Feedback</source>
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-06-13T15:37:42Z" product-name="pxa_form_enhancement">
+        <header/>
+        <body>
+            <trans-unit id="fe.error.credentials_not_set">
+                <source>Site key and site secret should not be empty.</source>
             </trans-unit>
-		</body>
-	</file>
+            <trans-unit id="fe.error.recaptcha">
+                <source>You didn't pass robot check. Please, try again.</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

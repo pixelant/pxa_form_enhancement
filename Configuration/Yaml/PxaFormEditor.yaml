@@ -1,0 +1,59 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+
+          formEditor:
+            translationFile:
+              0:  'EXT:form/Resources/Private/Language/Database.xlf'
+              1:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
+
+            dynamicRequireJsModules:
+              additionalViewModelModules: ['TYPO3/CMS/PxaFormEnhancement/Backend/RecaptchaViewModule']
+
+            formEditorPartials:
+              FormElement-Recaptcha: 'Stage/SimpleTemplate'
+
+          validatorsDefinition:
+            Recaptcha:
+              formEditor:
+                iconIdentifier: 't3-form-icon-validator'
+                label : 'formEditor.elements.FormElement.editor.recaptchaValidator.label'
+
+      ########### MIXINS ###########
+      mixins:
+        formElementMixins:
+          RecaptchaMixin:
+            formEditor:
+              label: 'formEditor.elements.Recaptcha.label'
+              group: custom
+              groupSorting: 500
+              iconIdentifier: 'ext-pxaformenhancement-recaptcha-icon'
+              editors:
+                __inheritances:
+                  10: 'TYPO3.CMS.Form.mixins.formElementMixins.RemoveButtonMixin'
+                200:
+                  label: 'formEditor.elements.Recaptcha.editor.label.label'
+                  propertyPath: 'label'
+                900:
+                  identifier: 'validators'
+                  templateName: 'Inspector-ValidatorsEditor'
+                  label: 'formEditor.elements.TextMixin.editor.validators.label'
+                  selectOptions:
+                    10:
+                      value: ''
+                      label: 'formEditor.elements.TextMixin.editor.validators.EmptyValue.label'
+                    20:
+                      value: 'Recaptcha'
+                      label: 'formEditor.elements.TextMixin.editor.validators.Recaptcha.label'
+
+              propertyCollections:
+                validators:
+                  10:
+                    identifier: 'Recaptcha'
+                    editors:
+                      __inheritances:
+                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                      100:
+                        label: 'formEditor.elements.TextMixin.validators.Recaptcha.editor.header.label'

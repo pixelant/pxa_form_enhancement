@@ -1,0 +1,37 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                partialRootPaths:
+                  510: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/'
+
+            Recaptcha:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.RecaptchaMixin'
+              properties:
+                elementClassAttribute: 'recaptcha'
+                containerClassAttribute: 'input'
+                elementErrorClassAttribute: 'error'
+
+          #finishersDefinition:
+          #  Recaptcha:
+          #    implementationClassName: 'Pixelant\PxaMedaT3kit\Domain\Finishers\RequestMaterialFinisher'
+
+          ### VALIDATORS ###
+          validatorsDefinition:
+            Recaptcha:
+              implementationClassName: 'Pixelant\PxaFormEnhancement\Validation\RecaptchaValidator'
+
+      ########### MIXINS ###########
+      mixins:
+        formElementMixins:
+          RecaptchaMixin:
+            __inheritances:
+              10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseFormElementMixin'
+
+            implementationClassName: 'TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement'
