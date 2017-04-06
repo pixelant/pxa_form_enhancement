@@ -33,6 +33,16 @@
                 <source>Recaptcha protection</source>
             </trans-unit>
 
+            <trans-unit id="tt_content.finishersDefinition.SaveForm.label">
+                <source>Save form</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.SaveForm.name.label">
+                <source>Override name of record</source>
+            </trans-unit>
+            <trans-unit id="tt_content.finishersDefinition.SaveForm.pageUid.label">
+                <source>Override page uid</source>
+            </trans-unit>
+
             <trans-unit id="formEditor.elements.Form.editor.finishers.SaveForm.label">
                 <source>Save form after send</source>
             </trans-unit>

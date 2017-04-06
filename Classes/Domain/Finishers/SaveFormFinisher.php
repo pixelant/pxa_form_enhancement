@@ -20,6 +20,7 @@ use Pixelant\PxaFormEnhancement\Domain\Model\FileReference as AttachFileReferenc
 use Pixelant\PxaFormEnhancement\Domain\Model\Form;
 use Pixelant\PxaFormEnhancement\Domain\Repository\FormRepository;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -62,6 +63,13 @@ class SaveFormFinisher extends AbstractFinisher
     protected $saveForm;
 
     /**
+     * Storage for records
+     *
+     * @var int
+     */
+    protected $pid = 0;
+
+    /**
      * Executes this finisher
      * @see AbstractFinisher::execute()
      */
@@ -70,28 +78,17 @@ class SaveFormFinisher extends AbstractFinisher
         $this->formRepository = $this->objectManager->get(FormRepository::class);
         $this->resourceFactory = $this->objectManager->get(ResourceFactory::class);
         $this->saveForm = $this->objectManager->get(Form::class);
+        $this->pid = $this->getPid();
 
-        $count = $this->formRepository->countByPid((int)$this->options['pageUid']);
-
-
+        $count = $this->formRepository->countByPid($this->pid);
 
         $formRuntime = $this->finisherContext->getFormRuntime();
         $standaloneView = $this->initializeStandaloneView($formRuntime);
 
-        $translationService = TranslationService::getInstance();
-        if (isset($this->options['translation']['language']) && !empty($this->options['translation']['language'])) {
-            $languageBackup = $translationService->getLanguage();
-            $translationService->setLanguage($this->options['translation']['language']);
-        }
-
         $message = trim($standaloneView->render());
 
-        if (!empty($languageBackup)) {
-            $translationService->setLanguage($languageBackup);
-        }
-
         $this->saveForm->setFormData($message);
-        $this->saveForm->setPid($this->options['pageUid']);
+        $this->saveForm->setPid($this->pid);
         $this->saveForm->setName($this->options['name'] . ' #' . ++$count);
 
         $this->attachFiles($formRuntime);
@@ -131,7 +128,7 @@ class SaveFormFinisher extends AbstractFinisher
                     );
 
                     $attachment->setOriginalResource($newFileReferenceObject);
-                    $attachment->setPid($this->options['pid']);
+                    $attachment->setPid($this->pid);
 
                     $this->saveForm->addAttachment($attachment);
                 }
@@ -139,6 +136,21 @@ class SaveFormFinisher extends AbstractFinisher
         }
     }
 
+    /**
+     * Get pid as storage
+     *
+     * @return int
+     */
+    protected function getPid(): int
+    {
+        if (GeneralUtility::isFirstPartOfStr($this->options['pageUid'], 'pages_')) {
+            $pid = (int)substr($this->options['pageUid'], 6);
+        } else {
+            $pid = (int)$this->options['pageUid'];
+        }
+
+        return $pid;
+    }
     /**
      * @param FormRuntime $formRuntime
      * @return StandaloneView
