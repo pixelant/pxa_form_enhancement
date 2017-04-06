@@ -32,6 +32,22 @@
             <trans-unit id="formEditor.elements.TextMixin.validators.Recaptcha.editor.header.label">
                 <source>Recaptcha protection</source>
             </trans-unit>
+
+            <trans-unit id="formEditor.elements.Form.editor.finishers.SaveForm.label">
+                <source>Save form after send</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.SaveForm.editor.name.label">
+                <source>Name of record</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.SaveForm.editor.header.label">
+                <source>Save form</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.SaveForm.editor.pageUid.buttonLabel">
+                <source>Select storage</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.Form.finisher.SaveForm.editor.pageUid.label">
+                <source>Storage</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

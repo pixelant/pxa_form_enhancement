@@ -8,7 +8,7 @@ TYPO3:
             Form:
               renderingOptions:
                 partialRootPaths:
-                  510: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/'
+                  610: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/'
 
             Recaptcha:
               __inheritances:
@@ -18,9 +18,11 @@ TYPO3:
                 containerClassAttribute: 'input'
                 elementErrorClassAttribute: 'error'
 
-          #finishersDefinition:
-          #  Recaptcha:
-          #    implementationClassName: 'Pixelant\PxaMedaT3kit\Domain\Finishers\RequestMaterialFinisher'
+          finishersDefinition:
+            SaveForm:
+              implementationClassName: 'Pixelant\PxaFormEnhancement\Domain\Finishers\SaveFormFinisher'
+              options:
+                templatePathAndFilename: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Templates/Finishers/SaveFormDataTxt.html'
 
           ### VALIDATORS ###
           validatorsDefinition:

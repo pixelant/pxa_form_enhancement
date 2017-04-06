@@ -1,4 +1,5 @@
 <?php
+
 namespace Pixelant\PxaFormEnhancement\Domain\Model;
 
 /***************************************************************
@@ -25,38 +26,43 @@ namespace Pixelant\PxaFormEnhancement\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as AbstractFileReference;
+
 /**
  * Class FileReference
  * @package Pixelant\PxaFormEnhancement\Domain\Model
  */
-class FileReference extends \TYPO3\CMS\Extbase\Domain\Model\FileReference {
+class FileReference extends AbstractFileReference
+{
 
-	/**
-	 * Uid of a sys_file
-	 *
-	 * @var integer
-	 */
-	protected $uidLocal;
+    /**
+     * Uid of a sys_file
+     *
+     * @var integer
+     */
+    protected $uidLocal;
 
-	/**
-	 * tablenames
-	 *
-	 * @var string
-	 */
-	protected $tablenames = 'tx_pxaformenhancement_domain_model_form';
-	
-	/**
-	 * tableLocal
-	 *
-	 * @var string
-	 */
-	protected $tableLocal = 'sys_file';
+    /**
+     * tablenames
+     *
+     * @var string
+     */
+    protected $tablenames = 'tx_pxaformenhancement_domain_model_form';
 
-	/**
-	 * @param \TYPO3\CMS\Core\Resource\ResourceInterface $originalResource
-	 */
-	public function setOriginalResource(\TYPO3\CMS\Core\Resource\ResourceInterface $originalResource) {
-		$this->originalResource = $originalResource;
-		$this->uidLocal = (int)$originalResource->getOriginalFile()->getUid();
-	}
+    /**
+     * tableLocal
+     *
+     * @var string
+     */
+    protected $tableLocal = 'sys_file';
+
+    /**
+     * @param \TYPO3\CMS\Core\Resource\ResourceInterface $originalResource
+     */
+    public function setOriginalResource(\TYPO3\CMS\Core\Resource\ResourceInterface $originalResource)
+    {
+        $this->originalResource = $originalResource;
+        $this->uidLocal = (int)$originalResource->getOriginalFile()->getUid();
+    }
 }

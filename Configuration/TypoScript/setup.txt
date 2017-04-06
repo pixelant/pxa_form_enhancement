@@ -7,9 +7,7 @@ plugin.tx_pxaformenhancement{
 
 plugin.tx_form {
     view {
-       # templateRootPaths.0 = EXT:form/Resources/Private/Frontend/Templates/
        partialRootPaths.510 = EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/
-       # layoutRootPaths.0 = EXT:form/Resources/Private/Frontend/Layouts/
     }
 
     settings {

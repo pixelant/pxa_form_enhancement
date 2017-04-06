@@ -15,6 +15,57 @@ TYPO3:
             formEditorPartials:
               FormElement-Recaptcha: 'Stage/SimpleTemplate'
 
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      610:
+                        value: 'SaveForm'
+                        label: 'formEditor.elements.Form.editor.finishers.SaveForm.label'
+
+                propertyCollections:
+                  finishers:
+                    610:
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'formEditor.elements.Form.finisher.SaveForm.editor.header.label'
+                        200:
+                          identifier: 'name'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'formEditor.elements.Form.finisher.SaveForm.editor.name.label'
+                          propertyPath: 'options.name'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'NotEmpty'
+                            20: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        300:
+                          identifier: 'pageUid'
+                          templateName: 'Inspector-Typo3WinBrowserEditor'
+                          label: 'formEditor.elements.Form.finisher.SaveForm.editor.pageUid.label'
+                          buttonLabel: 'formEditor.elements.Form.finisher.SaveForm.editor.pageUid.buttonLabel'
+                          browsableType: pages
+                          propertyPath: 'options.pageUid'
+                          propertyValidatorsMode: 'OR'
+                          propertyValidators:
+                            10: 'Integer'
+                            20: 'FormElementIdentifierWithinCurlyBracesExclusive'
+
+                      identifier: 'SaveForm'
+
+          finishersDefinition:
+            SaveForm:
+              formEditor:
+                iconIdentifier: 'ext-pxaformenhancement-finisher-icon'
+                label: 'formEditor.elements.Form.finisher.SaveForm.editor.header.label'
+                predefinedDefaults:
+                  options:
+                    name: ''
+                    pageUid: ''
+
           validatorsDefinition:
             Recaptcha:
               formEditor:
@@ -28,7 +79,7 @@ TYPO3:
             formEditor:
               label: 'formEditor.elements.Recaptcha.label'
               group: custom
-              groupSorting: 500
+              groupSorting: 600
               iconIdentifier: 'ext-pxaformenhancement-recaptcha-icon'
               editors:
                 __inheritances:

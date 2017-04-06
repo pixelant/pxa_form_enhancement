@@ -17,11 +17,19 @@ call_user_func(
                 \TYPO3\CMS\Core\Imaging\IconRegistry::class
             );
 
-            $iconRegistry->registerIcon(
-                'ext-pxaformenhancement-recaptcha-icon',
-                \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-                ['source' => 'EXT:pxa_form_enhancement/Resources/Public/Icons/recaptcha.svg']
-            );
+            $icons = [
+                'ext-pxaformenhancement-finisher-icon' => 'save.svg',
+                'ext-pxaformenhancement-letter-icon' => 'letter.svg',
+                'ext-pxaformenhancement-recaptcha-icon' => 'recaptcha.svg'
+            ];
+
+            foreach ($icons as $key => $icon) {
+                $iconRegistry->registerIcon(
+                    $key,
+                    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+                    ['source' => 'EXT:pxa_form_enhancement/Resources/Public/Icons/' . $icon]
+                );
+            }
         }
     },
     'pxa_form_enhancement'
