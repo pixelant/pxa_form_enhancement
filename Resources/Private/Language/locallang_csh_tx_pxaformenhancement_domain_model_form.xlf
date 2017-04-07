@@ -4,13 +4,13 @@
 		<header/>
 		<body>
 			<trans-unit id="name.description">
-				<source>name</source>
+				<source>Name</source>
 			</trans-unit>
-			<trans-unit id="attachment.description">
-				<source>attachment</source>
+			<trans-unit id="attachments.description">
+				<source>Attachments</source>
 			</trans-unit>
 			<trans-unit id="form_data.description">
-				<source>formData</source>
+				<source>Form data</source>
 			</trans-unit>
 		</body>
 	</file>

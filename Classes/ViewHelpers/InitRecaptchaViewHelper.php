@@ -2,10 +2,11 @@
 
 namespace Pixelant\PxaFormEnhancement\ViewHelpers;
 
-
 use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /***************************************************************
  *
@@ -31,32 +32,45 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-class InitRecaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-    /**
-     * js to init recaptcha
-     */
-    const JS_INLINE = 'var onloadCallbackRecaptcha = function() {grecaptcha.render(\'%s\', {\'sitekey\': \'%s\'});};';
-
+class InitRecaptchaViewHelper extends AbstractViewHelper
+{
     /**
      * recaptcha url
      */
     const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&render=explicit';
 
     /**
-     * add JS for recaptcha
+     * Initialize
      *
-     * @param \TYPO3\CMS\Form\Domain\Model\Element $recaptcha
      * @return void
      */
-    public function render(\TYPO3\CMS\Form\Domain\Model\Element $recaptcha) {
+    public function initializeArguments()
+    {
+        $this->registerArgument('recaptchaIdentifier', 'string', 'Unique identifier for recaptcha element', true);
+    }
+
+    /**
+     * Add JS for recaptcha
+     *
+     * @return string
+     */
+    public function render()
+    {
         $configuration = ConfigurationUtility::getConfiguration();
 
         if ($configuration['siteKey'] && $configuration['siteSecret']) {
             /** @var PageRenderer $pageRenderer */
             $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-            $pageRenderer->addJsFooterInlineCode('pxa_form_enhancement', sprintf(self::JS_INLINE, $recaptcha->getAdditionalArgument('id'), $configuration['siteKey']), false, false);
+
+            $pageRenderer->addJsFooterInlineCode(
+                'pxa_form_enhancement',
+                sprintf(
+                    $this->getJsInitTemplate(),
+                    $this->arguments['recaptchaIdentifier'],
+                    $configuration['siteKey']
+                )
+            );
+
             $pageRenderer->addJsFooterFile(
                 self::RECAPTCHA_URL,
                 'text/javascript',
@@ -67,6 +81,28 @@ class InitRecaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
                 '|',
                 true
             );
+
+            $message = '';
+        } else {
+            $message = LocalizationUtility::translate('fe.error.credentials_not_set', 'pxa_form_enhancement');
         }
+
+        return $message;
+    }
+
+    /**
+     * Js template
+     *
+     * @return string
+     */
+    protected function getJsInitTemplate()
+    {
+        return '
+var onloadCallbackRecaptcha = function() {
+    grecaptcha.render(
+        \'#%s\',
+         {\'sitekey\': \'%s\'}
+    );
+};';
     }
 }

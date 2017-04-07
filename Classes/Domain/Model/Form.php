@@ -1,35 +1,40 @@
 <?php
+
 namespace Pixelant\PxaFormEnhancement\Domain\Model;
 
-    /***************************************************************
-     *
-     *  Copyright notice
-     *
-     *  (c) 2016 Andriy Oprysko <andriy@pixelant.se>, Pixelant
-     *
-     *  All rights reserved
-     *
-     *  This script is part of the TYPO3 project. The TYPO3 project is
-     *  free software; you can redistribute it and/or modify
-     *  it under the terms of the GNU General Public License as published by
-     *  the Free Software Foundation; either version 3 of the License, or
-     *  (at your option) any later version.
-     *
-     *  The GNU General Public License can be found at
-     *  http://www.gnu.org/copyleft/gpl.html.
-     *
-     *  This script is distributed in the hope that it will be useful,
-     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *  GNU General Public License for more details.
-     *
-     *  This copyright notice MUST APPEAR in all copies of the script!
-     ***************************************************************/
+/***************************************************************
+ *
+ *  Copyright notice
+ *
+ *  (c) 2016 Andriy Oprysko <andriy@pixelant.se>, Pixelant
+ *
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Form
  */
-class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Form extends AbstractEntity
+{
 
     /**
      * name
@@ -41,9 +46,9 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * attachment
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Pixelant\PxaFormEnhancement\Domain\Model\FileReference>
      */
-    protected $attachment = null;
+    protected $attachments;
 
     /**
      * formData
@@ -53,22 +58,63 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $formData = '';
 
     /**
-     * Returns the attachment
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment
+     * __construct
      */
-    public function getAttachment() {
-        return $this->attachment;
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
     }
 
     /**
-     * Sets the attachment
+     * Initializes all ObjectStorage properties.
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment
      * @return void
      */
-    public function setAttachment(\TYPO3\CMS\Extbase\Domain\Model\FileReference $attachment) {
-        $this->attachment = $attachment;
+    protected function initStorageObjects()
+    {
+        /**
+         * Do not modify this method!
+         * It will be rewritten on each save in the extension builder
+         * You may modify the constructor of this class instead
+         */
+        $this->attachments = new ObjectStorage();
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getAttachments(): ObjectStorage
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * @param ObjectStorage $attachments
+     */
+    public function setAttachments(ObjectStorage $attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    /**
+     * Detach file
+     *
+     * @param FileReference $fileReference
+     */
+    public function removeAttachment(FileReference $fileReference)
+    {
+        $this->attachments->detach($fileReference);
+    }
+
+    /**
+     * Attach file
+     *
+     * @param FileReference $fileReference
+     */
+    public function addAttachment(FileReference $fileReference)
+    {
+        $this->attachments->attach($fileReference);
     }
 
     /**
@@ -76,7 +122,8 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      *
      * @return string $formData
      */
-    public function getFormData() {
+    public function getFormData()
+    {
         return $this->formData;
     }
 
@@ -86,7 +133,8 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @param string $formData
      * @return void
      */
-    public function setFormData($formData) {
+    public function setFormData($formData)
+    {
         $this->formData = $formData;
     }
 
@@ -95,7 +143,8 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      *
      * @return string $name
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -105,8 +154,8 @@ class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @param string $name
      * @return void
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
-
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anjey
- * Date: 13.06.16
- * Time: 15:24
- */
 
 namespace Pixelant\PxaFormEnhancement\Domain\Repository;
 
@@ -33,11 +27,30 @@ namespace Pixelant\PxaFormEnhancement\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * Class FormRepository
  * @package Pixelant\PxaFormEnhancement\Domain\FormRepository
  */
-class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class FormRepository extends Repository
+{
+    /**
+     * Initialize query settings
+     *
+     * @return void
+     */
+    public function initializeObject()
+    {
+        /** @var Typo3QuerySettings $defaultQuerySettings */
+        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
+
+        $defaultQuerySettings->setRespectStoragePage(false);
+        $defaultQuerySettings->setRespectSysLanguage(false);
+
+        $this->setDefaultQuerySettings($defaultQuerySettings);
+    }
 
     /**
      * count records
@@ -45,10 +58,9 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @param int $pid
      * @return int
      */
-    public function countByPid($pid) {
+    public function countByPid($pid)
+    {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
 
         return $query
             ->matching(

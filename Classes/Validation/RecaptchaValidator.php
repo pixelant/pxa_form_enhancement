@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anjey
- * Date: 25.02.16
- * Time: 13:55
- */
 
 namespace Pixelant\PxaFormEnhancement\Validation;
 
-
 use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
-use TYPO3\CMS\Core\Http\HttpRequest;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /***************************************************************
  *
@@ -43,72 +36,54 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class RecaptchaValidator
  * @package Pixelant\PxaFormEnhancement\Validation
  */
-class RecaptchaValidator extends \TYPO3\CMS\Form\Domain\Validator\AbstractValidator {
+class RecaptchaValidator extends AbstractValidator
+{
 
     /**
-     * Constant for localization
-     *
-     * @var string
-     */
-    const LOCALISATION_OBJECT_NAME = 'tx_form_system_validate_required';
-
-    /**
-     * Returns TRUE if recaptcha is no robot
+     * Check recaptcha
      *
      * @param mixed $value Recaptcha doesn't have value
      * @return void
      */
-    public function isValid($value = NULL) {
-        // skip recaptcha validation if it's from confirmation page
-        $post = GeneralUtility::_POST('tx_form_form');
-        if (!$post['confirmation-true']) {
-            $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
-            $configuration = ConfigurationUtility::getConfiguration();
-            $siteSecret = $configuration['siteSecret'];
+    public function isValid($value = null)
+    {
+        $isValid = false;
+        $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
+        $configuration = ConfigurationUtility::getConfiguration();
+        $siteSecret = $configuration['siteSecret'];
 
-            if ($recaptchaCode && $siteSecret) {
-                /** @var RequestFactory $httpRequest */
-                $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+        if ($recaptchaCode && $siteSecret) {
+            /** @var RequestFactory $httpRequest */
+            $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
-                /** @var \Psr\Http\Message\ResponseInterface $response */
-                $response = $requestFactory->request(
-                    'https://www.google.com/recaptcha/api/siteverify',
-                    'POST',
-                    [
-                        'form_params' => [
-                            'response' => $recaptchaCode,
-                            'secret' => $siteSecret,
-                            'remoteip' => $_SERVER['REMOTE_ADDR']
-                        ]
+            /** @var \Psr\Http\Message\ResponseInterface $response */
+            $response = $requestFactory->request(
+                'https://www.google.com/recaptcha/api/siteverify',
+                'POST',
+                [
+                    'form_params' => [
+                        'response' => $recaptchaCode,
+                        'secret' => $siteSecret,
+                        'remoteip' => $_SERVER['REMOTE_ADDR']
                     ]
-                );
+                ]
+            );
 
-                if ($response->getStatusCode() === 200) {
-                    $recaptchaResult = json_decode($response->getBody(), TRUE);
+            if ($response->getStatusCode() === 200) {
+                $recaptchaResult = json_decode($response->getBody(), true);
 
-                    if ($recaptchaResult['success']) {
-                        // exit if success
-                        return;
-                    }
-                }
-
+                $isValid = (bool)$recaptchaResult['success'];
             }
-
-            $this->addErrorMessage();
         }
-    }
 
-    /**
-     * add error message
-     */
-    protected function addErrorMessage() {
-        $this->addError(
-            $this->renderMessage(
-                $this->options['errorMessage'][0],
-                $this->options['errorMessage'][1],
-                'error'
-            ),
-            1465905014
-        );
+        if (!$isValid) {
+            $this->addError(
+                $this->translateErrorMessage(
+                    'fe.error.recaptcha',
+                    'pxa_form_enhancement'
+                ),
+                1465905014
+            );
+        }
     }
 }

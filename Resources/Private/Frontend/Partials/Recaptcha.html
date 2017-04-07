@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+      xmlns:pxa="http://typo3.org/ns/Pixelant/PxaFormEnhancement/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<formvh:renderRenderable renderable="{element}">
+    <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+        <f:form.hidden
+                property="{element.identifier}"
+                id="{element.uniqueIdentifier}"
+                value="{f:translate(key: 'fe.recaptcha.passCheck', extensionName: 'PxaFormEnhancement')}"
+        />
+        <div class="{element.properties.elementClassAttribute}" id="#{element.uniqueIdentifier}"></div>
+    </f:render>
+
+    <pxa:initRecaptcha recaptchaIdentifier="{element.uniqueIdentifier}"/>
+</formvh:renderRenderable>
+</html>

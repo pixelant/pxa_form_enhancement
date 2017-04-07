@@ -1,25 +1,36 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-$init = function ($_EXTKEY) {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Pxa Form Enhancement');
+call_user_func(
+    function ($_EXTKEY) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
+            'tx_pxaformenhancement_domain_model_form',
+            'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_csh_tx_pxaformenhancement_domain_model_form.xlf'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+            'tx_pxaformenhancement_domain_model_form'
+        );
 
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_pxaformenhancement_domain_model_form', 'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_csh_tx_pxaformenhancement_domain_model_form.xlf');
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_pxaformenhancement_domain_model_form');
+        if (TYPO3_MODE === 'BE') {
+            /** @var \TYPO3\CMS\Core\Imaging\IconRegistry $iconRegistry */
+            $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Core\Imaging\IconRegistry::class
+            );
 
-    $classToXClass = [
-        // xclass form Json to Typoscript converter, there is no any hook to add new form element
-        'TYPO3\CMS\Form\Domain\Factory\JsonToTypoScript' => 'Pixelant\PxaFormEnhancement\Xclass\Factory\JsonToTypoScript',
-        // same for Typoscript to Json converter
-        'TYPO3\CMS\Form\Utility\TypoScriptToJsonConverter' => 'Pixelant\PxaFormEnhancement\Xclass\Utility\TypoScriptToJson'
-    ];
+            $icons = [
+                'ext-pxaformenhancement-finisher-icon' => 'save.svg',
+                'ext-pxaformenhancement-letter-icon' => 'letter.svg',
+                'ext-pxaformenhancement-recaptcha-icon' => 'recaptcha.svg'
+            ];
 
-    foreach ($classToXClass as $class => $xClass) {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][$class] = [
-            'className' => $xClass
-        ];
-    }
-};
-
-$init($_EXTKEY);
-unset($init);
+            foreach ($icons as $key => $icon) {
+                $iconRegistry->registerIcon(
+                    $key,
+                    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+                    ['source' => 'EXT:pxa_form_enhancement/Resources/Public/Icons/' . $icon]
+                );
+            }
+        }
+    },
+    'pxa_form_enhancement'
+);
