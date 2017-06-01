@@ -72,7 +72,7 @@ class InitRecaptchaViewHelper extends AbstractViewHelper
             );
 
             $pageRenderer->addJsFooterFile(
-                self::RECAPTCHA_URL,
+                self::RECAPTCHA_URL . '&hl=' . $configuration['language'],
                 'text/javascript',
                 false,
                 false,
