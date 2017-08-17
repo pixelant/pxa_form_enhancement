@@ -1,0 +1,17 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                partialRootPaths:
+                  620: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/PartialsAdditional/'
+      ########### MIXINS ###########
+      mixins:
+        finishersEmailMixin:
+          implementationClassName: 'TYPO3\CMS\Form\Domain\Finishers\EmailFinisher'
+          options:
+            templateRootPaths:
+              610: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Templates/Finishers/Email/'
