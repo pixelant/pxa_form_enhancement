@@ -1,4 +1,4 @@
-plugin.tx_pxaformenhancement{
+plugin.tx_pxaformenhancement {
     settings {
         siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}
         siteKey = {$plugin.tx_pxaformenhancement.settings.siteKey}
@@ -7,7 +7,7 @@ plugin.tx_pxaformenhancement{
 
 plugin.tx_form {
     view {
-       partialRootPaths.510 = EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/
+        partialRootPaths.510 = EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/
     }
 
     settings {
@@ -17,3 +17,14 @@ plugin.tx_form {
         }
     }
 }
+
+# if we need to replace summary page template
+[globalVar = LIT:1 = {$plugin.tx_pxaformenhancement.settings.hideRecaptchaOnSummaryPage}]
+    plugin.tx_form {
+        settings {
+            yamlConfigurations {
+                530 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormAdditionalConfiguration.yaml
+            }
+        }
+    }
+[end]
