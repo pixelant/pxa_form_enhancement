@@ -161,9 +161,13 @@ class SaveFormPostProcessor implements \TYPO3\CMS\Form\PostProcess\PostProcessor
     protected function processFields($formElements, &$text, $submittedValues) {
         foreach ($formElements as $element) {
             if(is_a($element,'TYPO3\\CMS\\Form\\Domain\\Model\\Element\\ContainerElement')) {
-                if($element->getAdditionalObjectByKey('legend')->getValue()) {
-                    $text .= $element->getAdditionalObjectByKey('legend')->getValue() . "\n";
-                }
+                
+                if (is_object($element->getAdditionalObjectByKey('legend'))) {
+                    if($element->getAdditionalObjectByKey('legend')->getValue()) {
+                        $text .= $element->getAdditionalObjectByKey('legend')->getValue() . "\n";
+                    }    
+                } 
+                
                 $this->processFields($element->getElements(), $text, $submittedValues);
             } elseif (is_a($element,'TYPO3\\CMS\\Form\\Domain\\Model\\Element\\RadioElement')) {
                 $name = $element->getName();
