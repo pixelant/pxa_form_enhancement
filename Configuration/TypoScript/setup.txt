@@ -11,9 +11,11 @@ page.jsFooterInline {
 	831 = TEXT
     831.value (
 	var onloadCallbackRecaptcha = function() {
-        grecaptcha.render('g-recaptcha', {
-          'sitekey' : '{$plugin.tx_pxaformenhancement.settings.siteKey}'
-        });
+		if (document.getElementById('g-recaptcha')) {
+			grecaptcha.render('g-recaptcha', {
+			  'sitekey' : '{$plugin.tx_pxaformenhancement.settings.siteKey}'
+			});
+		}
     };
 )
 }
