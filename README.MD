@@ -19,8 +19,12 @@ Add reCAPTCHA site key and site secret constants. You can get these keys on [off
 ```
 #!typoscript
 
+// Google ReCaptcha authentications
 plugin.tx_pxaformenhancement.settings.siteKey = siteKeyHere
 plugin.tx_pxaformenhancement.settings.siteSecret = siteSecret
+
+#Optional (will be in current language by default if this is empty)
+#plugin.tx_pxaformenhancement.settings.language =
 ```
 ### Hide reCAPTCHA on summary page and in email ###
 ReCAPTCHA can be removed from summary page and emails using constants configuration. Set value of "hideRecaptchaOnSummaryPage"
