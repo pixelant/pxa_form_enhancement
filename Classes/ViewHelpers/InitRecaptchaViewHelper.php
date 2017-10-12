@@ -71,9 +71,9 @@ class InitRecaptchaViewHelper extends AbstractViewHelper
                 )
             );
 
-	        $reCaptchaLanguage = $configuration['language']=='' ? '&hl=' . $pageRenderer->getLanguage() : '&hl=' . $configuration['language'];
-	        $pageRenderer->addJsFooterFile(
-		        self::RECAPTCHA_URL . $reCaptchaLanguage,
+            $reCaptchaLanguage = '&hl=' . ($configuration['language'] ?: $pageRenderer->getLanguage());
+            $pageRenderer->addJsFooterFile(
+                self::RECAPTCHA_URL . $reCaptchaLanguage,
                 'text/javascript',
                 false,
                 false,

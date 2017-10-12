@@ -7,6 +7,9 @@ plugin.tx_pxaformenhancement {
 
         # cat=plugin.tx_pxaformenhancement/recaptcha/020; type=string; label=Site secret
         siteSecret =
+
+        # cat=plugin.tx_pxaformenhancement/recaptcha/030; type=string; label=Language ISO code (will be in current language by default if this is empty)
+        language =
     }
 
     # customsubcategory=general_settings=Settings
