@@ -15,6 +15,9 @@
 			<trans-unit id="tx_pxaformenhancement_domain_model_form.form_data">
 				<source>Form Data</source>
 			</trans-unit>
+			<trans-unit id="fe.error.credentials_not_set">
+				<source>Site key and site secret should not be empty.</source>
+			</trans-unit>
 
             <trans-unit id="label.newFormname">
                 <source>Form Feedback</source>

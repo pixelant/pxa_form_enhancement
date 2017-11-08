@@ -1,3 +1,5 @@
+{namespace pxa=Pixelant\PxaFormEnhancement\ViewHelpers}
+
 <f:if condition="{model.showElement}">
     <li class="csc-form-{model.elementCounter} csc-form-element csc-form-element-{model.elementTypeLowerCase}">
         <label for="{model.additionalArguments.id}">
@@ -12,4 +14,6 @@
 
         <div class="{model.additionalArguments.class}" id="{model.additionalArguments.id}"></div>
     </li>
+<f:debug>asgasg</f:debug>
+    <pxa:initRecaptcha />
 </f:if>

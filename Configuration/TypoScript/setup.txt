@@ -1,23 +1,4 @@
-page.includeJSFooter {
-	recaptcha {
-		disableCompression = 1
-		external = 1
-		excludeFromConcatenation = 1
-	}
-	recaptcha = https://www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&render=explicit
+plugin.tx_pxaformenhancement.settings {
+	siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}
+	siteKey = {$plugin.tx_pxaformenhancement.settings.siteKey}
 }
-
-page.jsFooterInline {
-	831 = TEXT
-    831.value (
-	var onloadCallbackRecaptcha = function() {
-		if (document.getElementById('g-recaptcha')) {
-			grecaptcha.render('g-recaptcha', {
-			  'sitekey' : '{$plugin.tx_pxaformenhancement.settings.siteKey}'
-			});
-		}
-    };
-)
-}
-
-plugin.tx_pxaformenhancement.settings.siteSecret = {$plugin.tx_pxaformenhancement.settings.siteSecret}
