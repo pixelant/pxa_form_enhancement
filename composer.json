@@ -14,6 +14,6 @@
     "typo3-ter/pxa_form_enhancement": "self.version"
   },
   "require": {
-    "typo3/cms": "^8.7.0"
+    "typo3/cms-form": "^8.7 || ^9.4"
   }
 }
