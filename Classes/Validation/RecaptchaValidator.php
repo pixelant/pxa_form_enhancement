@@ -80,7 +80,7 @@ class RecaptchaValidator extends AbstractValidator
             $this->addError(
                 $this->translateErrorMessage(
                     'fe.error.recaptcha',
-                    'pxa_form_enhancement'
+                    'PxaFormEnhancement'
                 ),
                 1465905014
             );
