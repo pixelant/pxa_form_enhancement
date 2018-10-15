@@ -81,7 +81,7 @@ class IncludeRecaptchaJsViewHelper extends AbstractViewHelper
                 true
             );
         } else {
-            return LocalizationUtility::translate('fe.error.credentials_not_set', 'pxa_form_enhancement');
+            return LocalizationUtility::translate('fe.error.credentials_not_set', 'PxaFormEnhancement');
         }
     }
 }
