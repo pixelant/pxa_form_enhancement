@@ -1,12 +1,14 @@
 <?php
-
+declare(strict_types=1);
 namespace Pixelant\PxaFormEnhancement\ViewHelpers;
 
 use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /***************************************************************
  *
@@ -32,78 +34,54 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class InitRecaptchaViewHelper extends AbstractViewHelper
+
+/**
+ * Class InitRecaptchaViewHelper
+ * @package Pixelant\PxaFormEnhancement\ViewHelpers
+ */
+class IncludeRecaptchaJsViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
+
     /**
      * recaptcha url
      */
-    const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js?onload=onloadCallbackRecaptcha&render=explicit';
-
-    /**
-     * Initialize
-     *
-     * @return void
-     */
-    public function initializeArguments()
-    {
-        $this->registerArgument('recaptchaIdentifier', 'string', 'Unique identifier for recaptcha element', true);
-    }
+    protected static $recaptchaUrl = 'https://www.google.com/recaptcha/api.js';
 
     /**
      * Add JS for recaptcha
      *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public function render()
-    {
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
         $configuration = ConfigurationUtility::getConfiguration();
 
         if ($configuration['siteKey'] && $configuration['siteSecret']) {
             /** @var PageRenderer $pageRenderer */
             $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 
-            $pageRenderer->addJsFooterInlineCode(
-                'pxa_form_enhancement',
-                sprintf(
-                    $this->getJsInitTemplate(),
-                    $this->arguments['recaptchaIdentifier'],
-                    $configuration['siteKey']
-                )
-            );
-
-            $reCaptchaLanguage = '&hl=' . ($configuration['language'] ?: $pageRenderer->getLanguage());
+            $reCaptchaLanguage = '?hl=' . ($configuration['language'] ?: $pageRenderer->getLanguage());
             $pageRenderer->addJsFooterFile(
-                self::RECAPTCHA_URL . $reCaptchaLanguage,
+                self::$recaptchaUrl . $reCaptchaLanguage,
                 'text/javascript',
                 false,
                 false,
                 '',
                 true,
                 '|',
+                true,
+                '',
                 true
             );
-
-            $message = '';
         } else {
-            $message = LocalizationUtility::translate('fe.error.credentials_not_set', 'pxa_form_enhancement');
+            return LocalizationUtility::translate('fe.error.credentials_not_set', 'pxa_form_enhancement');
         }
-
-        return $message;
-    }
-
-    /**
-     * Js template
-     *
-     * @return string
-     */
-    protected function getJsInitTemplate()
-    {
-        return '
-var onloadCallbackRecaptcha = function() {
-    grecaptcha.render(
-        \'#%s\',
-         {\'sitekey\': \'%s\'}
-    );
-};';
     }
 }
