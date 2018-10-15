@@ -26,8 +26,10 @@ namespace Pixelant\PxaFormEnhancement\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class ConfigurationUtility
@@ -51,27 +53,17 @@ class ConfigurationUtility
     public static function getConfiguration()
     {
         if (self::$configuration === null) {
-            $configuration = self::getTSFE()->tmpl->setup;
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
 
-            if (isset($configuration['plugin.']['tx_pxaformenhancement.']['settings.'])
-                && is_array($configuration['plugin.']['tx_pxaformenhancement.']['settings.'])
-            ) {
-                self::$configuration = GeneralUtility::removeDotsFromTS(
-                    $configuration['plugin.']['tx_pxaformenhancement.']['settings.']
-                );
-            } else {
-                self::$configuration = [];
-            }
+            $settings = $configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                'pxaformenhancement'
+            );
+
+            self::$configuration = is_array($settings) ? $settings : [];
         }
 
         return self::$configuration;
-    }
-
-    /**
-     * @return TypoScriptFrontendController
-     */
-    public static function getTSFE()
-    {
-        return $GLOBALS['TSFE'];
     }
 }
