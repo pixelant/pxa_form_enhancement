@@ -76,8 +76,6 @@ class IncludeRecaptchaJsViewHelper extends AbstractViewHelper
                 '',
                 true,
                 '|',
-                true,
-                '',
                 true
             );
         } else {
