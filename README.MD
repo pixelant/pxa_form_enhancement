@@ -1,22 +1,21 @@
-# Pixelant
-[![TYPO3](https://img.shields.io/badge/TYPO3-8.7.0-orange.svg?style=flat-square)](https://typo3.org/)
+# Form Enhancement
 
-# Pixelant Form Enhancement (pxa_form_enhancement) #
+## Pixelant Form Enhancement `pxa_form_enhancement`
 
-## What’s it is doing? ##
 This extension extend standard TYPO3 form with next features:
 
  1. reCAPTCHA - protect website form from spam 
  2. Save form finisher - save email sent by users of your website
 
-## How to configure it ? ##
+## Configurtion
+
 Use extension manager to install extension
 
 Include TypoScript template. Include static (from extensions): "Pxa Form Enhancement (pxa_form_enhancement)".
 
-Add reCAPTCHA site key and site secret constants. You can get these keys on [official page](https://www.google.com/recaptcha/intro/index.html). 
+Add reCAPTCHA site key and site secret constants. You can get these keys on [official page](https://www.google.com/recaptcha/intro/index.html).
 
-```
+```typoscript
 #!typoscript
 
 // Google ReCaptcha authentications
@@ -26,21 +25,23 @@ plugin.tx_pxaformenhancement.settings.siteSecret = siteSecret
 #Optional (will be in current language by default if this is empty)
 #plugin.tx_pxaformenhancement.settings.language =
 ```
-### Hide reCAPTCHA on summary page and in email ###
+
+### Hide reCAPTCHA on summary page and in email
+
 ReCAPTCHA can be removed from summary page and emails using constants configuration. Set value of "hideRecaptchaOnSummaryPage"
 constant to "1". Note that this option will change default path of summary and emails templates. 
 
-```
+``` typoscript
 #!typoscript
 
 plugin.tx_pxaformenhancement.settings.hideRecaptchaOnSummaryPage = 1
 ```
 
-## Using reCAPTCHA ##
+## Using reCAPTCHA
 
 reCAPTCHA is available as new element in list of "Advanced elements". Add it to you website form and it will appear on a site automatically. **Don't forget to add Recaptcha validator to this element**.
 
-## Using Save form post processor ##
+## Using Save form post processor
 
 If you need to save form sent by user, you need **to add a finisher** tab. Its name is "**Save form**".
 
