@@ -3,7 +3,6 @@
   "description": "Pxa TYPO3 Form Enhancement",
   "type": "typo3-cms-extension",
   "license": "GPL-2.0+",
-  "version": "3.1.1",
   "autoload": {
     "psr-4": {
       "Pixelant\\PxaFormEnhancement\\": "Classes/"
