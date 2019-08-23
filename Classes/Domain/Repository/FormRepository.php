@@ -27,6 +27,7 @@ namespace Pixelant\PxaFormEnhancement\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -68,5 +69,23 @@ class FormRepository extends Repository
             )
             ->execute()
             ->count();
+    }
+
+    /**
+     * @param int $pid
+     * @return array
+     */
+    public function findNamesByPid(int $pid): array
+    {
+        /** @var Query $query */
+        $query = $this->createQuery();
+
+        $result = $query
+            ->matching(
+                $query->equals('pid', $pid)
+            )
+            ->execute(true);
+
+        return array_column($result, 'name');
     }
 }
