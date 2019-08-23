@@ -79,8 +79,6 @@ class SaveFormFinisher extends AbstractFinisher
         $this->saveForm = $this->objectManager->get(Form::class);
         $this->pid = $this->getPid();
 
-        $count = $this->formRepository->countByPid($this->pid);
-
         $formRuntime = $this->finisherContext->getFormRuntime();
         $standaloneView = $this->initializeStandaloneView($formRuntime);
 
@@ -88,7 +86,9 @@ class SaveFormFinisher extends AbstractFinisher
 
         $this->saveForm->setFormData($message);
         $this->saveForm->setPid($this->pid);
-        $this->saveForm->setName($this->options['name'] . ' #' . ++$count);
+        $this->saveForm->setName(
+            $this->generateName()
+        );
 
         $this->attachFiles($formRuntime);
 
@@ -187,5 +187,27 @@ class SaveFormFinisher extends AbstractFinisher
             ->addOrUpdate(RenderRenderableViewHelper::class, 'formRuntime', $formRuntime);
 
         return $standaloneView;
+    }
+
+    /**
+     * @return string
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     */
+    protected function generateName(): string
+    {
+        $name = $this->parseOption('name');
+
+        // If name is not found - set default
+        if (!is_string($name)) {
+            $name = 'Form';
+        }
+
+        // Add count postfix
+        $existingNamesCount = $this->formRepository->countByNameSimilarity($this->pid, $name);
+        if ($existingNamesCount > 0) {
+            $name = $name . ' #' . ++$existingNamesCount;
+        }
+
+        return $name;
     }
 }
