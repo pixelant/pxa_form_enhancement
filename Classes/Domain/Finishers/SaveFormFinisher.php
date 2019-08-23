@@ -191,23 +191,10 @@ class SaveFormFinisher extends AbstractFinisher
 
     /**
      * @return string
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
      */
     protected function generateName(): string
     {
-        $names = $this->formRepository->findNamesByPid($this->pid);
-
-        // Remove count postfixes
-        $names = array_map(function ($item) {
-            return trim(
-                preg_replace(
-                    '/\#\d*$/',
-                    '',
-                    trim($item)
-                )
-            );
-        }, $names);
-
-        $nameCounts = array_count_values($names);
         $name = $this->parseOption('name');
 
         // If name is not found - set default
@@ -216,8 +203,9 @@ class SaveFormFinisher extends AbstractFinisher
         }
 
         // Add count postfix
-        if ($nameCounts[$name]) {
-            $name = $name . ' #' . ($nameCounts[$name] + 1);
+        $existingNamesCount = $this->formRepository->countByNameSimilarity($this->pid, $name);
+        if ($existingNamesCount > 0) {
+            $name = $name . ' #' . ++$existingNamesCount;
         }
 
         return $name;

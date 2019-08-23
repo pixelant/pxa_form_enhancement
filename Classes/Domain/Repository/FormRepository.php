@@ -54,38 +54,27 @@ class FormRepository extends Repository
     }
 
     /**
-     * count records
-     *
      * @param int $pid
+     * @param string $name
      * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
      */
-    public function countByPid($pid)
-    {
-        $query = $this->createQuery();
-
-        return $query
-            ->matching(
-                $query->equals('pid', $pid)
-            )
-            ->execute()
-            ->count();
-    }
-
-    /**
-     * @param int $pid
-     * @return array
-     */
-    public function findNamesByPid(int $pid): array
+    public function countByNameSimilarity(int $pid, string $name = '')
     {
         /** @var Query $query */
         $query = $this->createQuery();
 
-        $result = $query
+        return $query
             ->matching(
-                $query->equals('pid', $pid)
+                $query->logicalAnd(
+                    $query->equals('pid', $pid),
+                    $query->logicalOr(
+                        $query->equals('name', $name),
+                        $query->like('name', $name . ' #%')
+                    )
+                )
             )
-            ->execute(true);
-
-        return array_column($result, 'name');
+            ->execute()
+            ->count();
     }
 }
