@@ -5,24 +5,24 @@ TYPO3:
         standard:
           formEngine:
             translationFile:
-              0:  'EXT:form/Resources/Private/Language/Database.xlf'
-              1:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
+              0: EXT:form/Resources/Private/Language/Database.xlf
+              1: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
 
           finishersDefinition:
             SaveForm:
               FormEngine:
-                label: 'tt_content.finishersDefinition.SaveForm.label'
+                label: tt_content.finishersDefinition.SaveForm.label
                 elements:
                   name:
-                    label: 'tt_content.finishersDefinition.SaveForm.name.label'
+                    label: tt_content.finishersDefinition.SaveForm.name.label
                     config:
-                      type: 'input'
+                      type: input
                   pageUid:
-                    label: 'tt_content.finishersDefinition.SaveForm.pageUid.label'
+                    label: tt_content.finishersDefinition.SaveForm.pageUid.label
                     config:
-                      type: 'group'
-                      internal_type: 'db'
-                      allowed: 'pages'
+                      type: group
+                      internal_type: db
+                      allowed: pages
                       size: 1
                       minitems: 1
                       maxitems: 1
