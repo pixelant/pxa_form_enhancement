@@ -48,6 +48,7 @@ TYPO3:
                           label: formEditor.elements.Form.finisher.SaveForm.editor.pageUid.label
                           buttonLabel: formEditor.elements.Form.finisher.SaveForm.editor.pageUid.buttonLabel
                           browsableType: pages
+                          iconIdentifier: apps-pagetree-page-default
                           propertyPath: options.pageUid
                           propertyValidatorsMode: OR
                           propertyValidators:
