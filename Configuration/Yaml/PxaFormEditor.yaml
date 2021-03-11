@@ -8,6 +8,8 @@ TYPO3:
             translationFile:
               0:  'EXT:form/Resources/Private/Language/Database.xlf'
               1:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
+            translationFiles:
+              20:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
 
             dynamicRequireJsModules:
               additionalViewModelModules: ['TYPO3/CMS/PxaFormEnhancement/Backend/RecaptchaViewModule']
