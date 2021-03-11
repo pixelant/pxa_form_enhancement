@@ -2,17 +2,21 @@
   "name": "pixelant/pxa-form-enhancement",
   "description": "Pxa TYPO3 Form Enhancement",
   "type": "typo3-cms-extension",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "autoload": {
     "psr-4": {
       "Pixelant\\PxaFormEnhancement\\": "Classes/"
     }
   },
   "replace": {
-    "pxa_form_enhancement": "self.version",
     "typo3-ter/pxa_form_enhancement": "self.version"
   },
   "require": {
     "typo3/cms-form": "^8.7 || ^9.4 || ^10.4"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "pxa_form_enhancement"
+    }
   }
 }
