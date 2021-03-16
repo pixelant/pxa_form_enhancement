@@ -4,6 +4,7 @@ TYPO3:
       prototypes:
         standard:
           formEngine:
+            # needed by older TYPO3 versions (8.7, 9.5)
             translationFile:
               0:  EXT:form/Resources/Private/Language/Database.xlf
               1:  EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
