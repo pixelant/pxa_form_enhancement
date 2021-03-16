@@ -24,7 +24,7 @@ module.tx_form {
 }'
     ));
 
-    // supporting TYPO3 v8
+    // supporting TYPO3 v8 and v9
     $typoVersionArray = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray(
         \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()
     );

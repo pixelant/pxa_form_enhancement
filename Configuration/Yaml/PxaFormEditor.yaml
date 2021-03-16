@@ -5,6 +5,7 @@ TYPO3:
         standard:
 
           formEditor:
+            # needed by older TYPO3 versions (8.7, 9.5)
             translationFile:
               0: EXT:form/Resources/Private/Language/Database.xlf
               1: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
@@ -62,6 +63,7 @@ TYPO3:
                 label: formEditor.elements.Form.finisher.SaveForm.editor.header.label
                 predefinedDefaults:
                   options:
+                    # validators fail if null(empty field) value specified
                     name: ''
                     pageUid: ''
 
