@@ -1,9 +1,1 @@
-module.tx_form {
-    settings {
-        yamlConfigurations {
-            510 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaBaseSetup.yaml
-            520 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormEditor.yaml
-            530 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormEngine.yaml
-        }
-    }
-}
+
