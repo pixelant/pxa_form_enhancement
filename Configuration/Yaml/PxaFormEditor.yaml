@@ -5,9 +5,11 @@ TYPO3:
         standard:
 
           formEditor:
+            translationFile:
+              0:  'EXT:form/Resources/Private/Language/Database.xlf'
+              1:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
             translationFiles:
-              0: EXT:form/Resources/Private/Language/Database.xlf
-              1: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
+              20:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
 
             dynamicRequireJsModules:
               additionalViewModelModules: ['TYPO3/CMS/PxaFormEnhancement/Backend/RecaptchaViewModule']
@@ -64,8 +66,8 @@ TYPO3:
                 label: formEditor.elements.Form.finisher.SaveForm.editor.header.label
                 predefinedDefaults:
                   options:
-                    name: 
-                    pageUid: 
+                    name:
+                    pageUid:
 
           validatorsDefinition:
             Recaptcha:
@@ -94,7 +96,7 @@ TYPO3:
                   label: formEditor.elements.TextMixin.editor.validators.label
                   selectOptions:
                     10:
-                      value: 
+                      value:
                       label: formEditor.elements.TextMixin.editor.validators.EmptyValue.label
                     20:
                       value: Recaptcha
@@ -108,4 +110,4 @@ TYPO3:
                       __inheritances:
                         10: TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin
                       100:
-                        label: formEditor.elements.TextMixin.validators.Recaptcha.editor.header.label
+                        label: 'formEditor.elements.TextMixin.validators.Recaptcha.editor.header.label'

@@ -5,8 +5,10 @@ TYPO3:
         standard:
           formEngine:
             translationFile:
-              0: EXT:form/Resources/Private/Language/Database.xlf
-              1: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
+              0:  'EXT:form/Resources/Private/Language/Database.xlf'
+              1:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
+            translationFiles:
+              20:  'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf'
 
           finishersDefinition:
             SaveForm:
