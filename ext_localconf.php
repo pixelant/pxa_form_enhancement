@@ -29,7 +29,7 @@ module.tx_form {
         \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()
     );
 
-    if ($typoVersionArray['version_main'] == 8){
+    if (in_array($typoVersionArray['version_main'], [8, 9])) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
 config.tx_extbase {
     persistence {
