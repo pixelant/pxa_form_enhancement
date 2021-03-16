@@ -62,8 +62,8 @@ TYPO3:
                 label: formEditor.elements.Form.finisher.SaveForm.editor.header.label
                 predefinedDefaults:
                   options:
-                    name:
-                    pageUid:
+                    name: ''
+                    pageUid: ''
 
           validatorsDefinition:
             Recaptcha:
