@@ -2,10 +2,10 @@
 defined('TYPO3_MODE') or die();
 
 call_user_func(
-    function ($_EXTKEY) {
+    function () {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
             'tx_pxaformenhancement_domain_model_form',
-            'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_csh_tx_pxaformenhancement_domain_model_form.xlf'
+            'EXT:pxa_form_enhancement/Resources/Private/Language/locallang_csh_tx_pxaformenhancement_domain_model_form.xlf'
         );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
             'tx_pxaformenhancement_domain_model_form'
@@ -31,6 +31,5 @@ call_user_func(
                 );
             }
         }
-    },
-    'pxa_form_enhancement'
+    }
 );
