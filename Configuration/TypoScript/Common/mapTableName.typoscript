@@ -1,0 +1,11 @@
+config.tx_extbase {
+  persistence {
+    classes {
+      Pixelant\PxaFormEnhancement\Domain\Model\FileReference {
+        mapping {
+          tableName = sys_file_reference
+        }
+      }
+    }
+  }
+}
