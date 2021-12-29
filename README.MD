@@ -7,7 +7,7 @@ This extension extend standard TYPO3 form with next features:
  1. reCAPTCHA - protect website form from spam 
  2. Save form finisher - save email sent by users of your website
 
-## Configurtion
+## Configuration
 
 Use extension manager to install extension
 
