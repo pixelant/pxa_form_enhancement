@@ -20,7 +20,7 @@
     "typo3-ter/pxa-form-enhancement": "self.version"
   },
   "require": {
-    "typo3/cms-form": "^8.7 || ^9.5 || ^10.4"
+    "typo3/cms-form": "^8.7 || ^9.5 || ^10.4 || ^11.5"
   },
   "extra": {
     "typo3/cms": {
