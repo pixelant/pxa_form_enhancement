@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Pixelant\PxaFormEnhancement\Validation;
 
-use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /***************************************************************
@@ -38,6 +39,14 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 class RecaptchaValidator extends AbstractValidator
 {
+    protected ConfigurationManagerInterface $configurationManager;
+
+    public function __construct(array $options = [])
+    {
+        parent::__construct($options);
+
+        $this->configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+    }
 
     /**
      * Check recaptcha
@@ -45,18 +54,19 @@ class RecaptchaValidator extends AbstractValidator
      * @param mixed $value Recaptcha doesn't have value
      * @return void
      */
-    public function isValid($value = null)
+    public function isValid($value = null): void
     {
         $isValid = false;
         $recaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
-        $configuration = ConfigurationUtility::getConfiguration();
-        $siteSecret = $configuration['siteSecret'];
+        $configuration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'pxaformenhancement'
+        );
+        $siteSecret = $configuration['siteSecret'] ?? null;
 
         if ($recaptchaCode && $siteSecret) {
-            /** @var RequestFactory $httpRequest */
             $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
-            /** @var \Psr\Http\Message\ResponseInterface $response */
             $response = $requestFactory->request(
                 'https://www.google.com/recaptcha/api/siteverify',
                 'POST',
@@ -70,7 +80,7 @@ class RecaptchaValidator extends AbstractValidator
             );
 
             if ($response->getStatusCode() === 200) {
-                $recaptchaResult = json_decode($response->getBody(), true);
+                $recaptchaResult = json_decode((string)$response->getBody(), true);
 
                 $isValid = (bool)$recaptchaResult['success'];
             }

@@ -9,11 +9,9 @@
                 id="{element.uniqueIdentifier}"
                 value="{f:translate(key: 'fe.recaptcha.passCheck', extensionName: 'PxaFormEnhancement')}"
         />
-        <pxa:getSettings as="settings">
-            <div class="g-recaptcha {element.properties.elementClassAttribute}"
-                 id="#{element.uniqueIdentifier}"
-                 data-sitekey="{settings.siteKey}"></div>
-        </pxa:getSettings>
+        <div class="g-recaptcha {element.properties.elementClassAttribute}"
+             id="#{element.uniqueIdentifier}"
+             data-sitekey="{pxa:siteKey()}"></div>
     </f:render>
 
     <pxa:includeRecaptchaJs />

@@ -1,5 +1,7 @@
 imports:
   - { resource: "./Finishers/SaveForm.yaml" }
+  - { resource: "./FormElements/Recaptcha.yaml" }
+  - { resource: "./Validators/Recaptcha.yaml" }
 
 
 TYPO3:
@@ -17,6 +19,9 @@ TYPO3:
 
           formElementsDefinition:
             Form:
+              renderingOptions:
+                partialRootPaths:
+                  510: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/'
               formEditor:
                 editors:
                   900:

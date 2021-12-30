@@ -7,14 +7,5 @@ plugin.tx_pxaformenhancement {
 
         # cat=plugin.tx_pxaformenhancement/recaptcha/020; type=string; label=Site secret
         siteSecret =
-
-        # cat=plugin.tx_pxaformenhancement/recaptcha/030; type=string; label=Language ISO code (will be in current language by default if this is empty)
-        language =
-    }
-
-    # customsubcategory=general_settings=Settings
-    settings {
-        # cat=plugin.tx_pxaformenhancement/general_settings/010; type=options[Yes=1,No=0]; label=Hide reCaptcha on summary page and in email
-        hideRecaptchaOnSummaryPage = 0
     }
 }

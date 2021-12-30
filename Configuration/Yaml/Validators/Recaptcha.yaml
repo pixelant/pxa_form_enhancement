@@ -1,0 +1,11 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          validatorsDefinition:
+            Recaptcha:
+              implementationClassName: 'Pixelant\PxaFormEnhancement\Validation\RecaptchaValidator'
+              formEditor:
+                iconIdentifier: form-validator
+                label: formEditor.elements.FormElement.editor.recaptchaValidator.label
