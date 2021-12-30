@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Pixelant\PxaFormEnhancement\ViewHelpers;
 
-use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;

@@ -10,3 +10,7 @@ services:
 
   Pixelant\PxaFormEnhancement\Domain\Finishers\SaveFormFinisher:
     public: true
+
+  # Override Form view helper
+  TYPO3\CMS\Form\ViewHelpers\RenderAllFormValuesViewHelper:
+    class: Pixelant\PxaFormEnhancement\ViewHelpers\RenderAllFormValuesViewHelper
