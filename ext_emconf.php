@@ -10,7 +10,7 @@
  * "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['pxa_form_enhancement'] = [
     'title' => 'Pxa Form Enhancement',
     'description' => 'Allow to add recaptcha to TYPO3 form and save form post processor',
     'category' => 'fe',
