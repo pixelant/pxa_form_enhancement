@@ -11,18 +11,4 @@ call_user_func(function () {
             'expirePeriod' => 30,
         ];
     }
-
-    if (TYPO3_MODE === 'BE') {
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
-module.tx_form {
-    settings {
-        yamlConfigurations {
-            510 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaBaseSetup.yaml
-            520 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormEditor.yaml
-            530 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormEngine.yaml
-        }
-    }
-}'
-        ));
-    }
 });
