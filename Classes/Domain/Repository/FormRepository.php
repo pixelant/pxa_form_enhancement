@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Pixelant\PxaFormEnhancement\Domain\Repository;
 
@@ -27,8 +28,6 @@ namespace Pixelant\PxaFormEnhancement\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -38,31 +37,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class FormRepository extends Repository
 {
     /**
-     * Initialize query settings
-     *
-     * @return void
+     * Count existing records
      */
-    public function initializeObject()
+    public function countByNameSimilarity(int $pid, string $name): int
     {
-        /** @var Typo3QuerySettings $defaultQuerySettings */
-        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
-
-        $defaultQuerySettings->setRespectStoragePage(false);
-        $defaultQuerySettings->setRespectSysLanguage(false);
-
-        $this->setDefaultQuerySettings($defaultQuerySettings);
-    }
-
-    /**
-     * @param int $pid
-     * @param string $name
-     * @return int
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
-     */
-    public function countByNameSimilarity(int $pid, string $name = '')
-    {
-        /** @var Query $query */
         $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         return $query
             ->matching(

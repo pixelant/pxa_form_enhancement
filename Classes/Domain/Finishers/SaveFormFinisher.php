@@ -178,8 +178,7 @@ class SaveFormFinisher extends AbstractFinisher
     }
 
     /**
-     * @return string
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     * Create a name for new save to db record
      */
     protected function generateName(): string
     {
