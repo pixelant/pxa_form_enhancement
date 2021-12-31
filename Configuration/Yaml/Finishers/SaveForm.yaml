@@ -3,15 +3,18 @@ TYPO3:
     Form:
       prototypes:
         standard:
-          formEngine:
-            # needed by older TYPO3 versions (8.7, 9.5)
-            translationFile:
-              0:  EXT:form/Resources/Private/Language/Database.xlf
-              1:  EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
-            translationFiles:
-              20:  EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
           finishersDefinition:
             SaveForm:
+              implementationClassName: 'Pixelant\PxaFormEnhancement\Domain\Finishers\SaveFormFinisher'
+              options:
+                templatePathAndFilename: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Templates/Finishers/SaveFormDataTxt.html'
+              formEditor:
+                iconIdentifier: ext-pxaformenhancement-finisher-icon
+                label: formEditor.elements.Form.finisher.SaveForm.editor.header.label
+                predefinedDefaults:
+                  options:
+                    name: ''
+                    pageUid: ''
               FormEngine:
                 label: tt_content.finishersDefinition.SaveForm.label
                 elements:

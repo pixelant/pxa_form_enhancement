@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
+
 namespace Pixelant\PxaFormEnhancement\ViewHelpers;
 
-use Pixelant\PxaFormEnhancement\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -50,36 +49,10 @@ class IncludeRecaptchaJsViewHelper extends AbstractViewHelper
 
     /**
      * Add JS for recaptcha
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
-        $configuration = ConfigurationUtility::getConfiguration();
-
-        if ($configuration['siteKey'] && $configuration['siteSecret']) {
-            /** @var PageRenderer $pageRenderer */
-            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-
-            $reCaptchaLanguage = '?hl=' . ($configuration['language'] ?: $pageRenderer->getLanguage());
-            $pageRenderer->addJsFooterFile(
-                self::$recaptchaUrl . $reCaptchaLanguage,
-                'text/javascript',
-                false,
-                false,
-                '',
-                true,
-                '|',
-                true
-            );
-        } else {
-            return LocalizationUtility::translate('fe.error.credentials_not_set', 'PxaFormEnhancement');
-        }
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): void
+    {
+        GeneralUtility::makeInstance(PageRenderer::class)
+            ->addJsFile(static::$recaptchaUrl, 'text/javascript', false, false, '', true, '|', true, '', true);
     }
 }

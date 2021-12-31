@@ -21,10 +21,10 @@ use Pixelant\PxaFormEnhancement\Domain\Model\Form;
 use Pixelant\PxaFormEnhancement\Domain\Repository\FormRepository;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\FileUpload;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
@@ -38,45 +38,36 @@ use TYPO3\CMS\Form\ViewHelpers\RenderRenderableViewHelper;
 class SaveFormFinisher extends AbstractFinisher
 {
 
-    /**
-     * @var array
-     */
     protected $defaultOptions = [
         'pageUid' => 1,
         'name' => '',
     ];
 
-    /**
-     * @var FormRepository
-     */
-    protected $formRepository;
+    protected FormRepository $formRepository;
+    protected ResourceFactory $resourceFactory;
+    protected PersistenceManagerInterface $persistenceManager;
 
-    /**
-     * @var ResourceFactory
-     */
-    protected $resourceFactory;
-
-    /**
-     * @var Form
-     */
-    protected $saveForm;
+    protected Form $saveForm;
 
     /**
      * Storage for records
-     *
-     * @var int
      */
-    protected $pid = 0;
+    protected int $pid = 0;
+
+    public function __construct(FormRepository $formRepository, ResourceFactory $resourceFactory, PersistenceManagerInterface $persistenceManager)
+    {
+        $this->formRepository = $formRepository;
+        $this->resourceFactory = $resourceFactory;
+        $this->persistenceManager = $persistenceManager;
+    }
 
     /**
      * Executes this finisher
      * @see AbstractFinisher::execute()
      */
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
-        $this->formRepository = $this->objectManager->get(FormRepository::class);
-        $this->resourceFactory = $this->objectManager->get(ResourceFactory::class);
-        $this->saveForm = $this->objectManager->get(Form::class);
+        $this->saveForm = GeneralUtility::makeInstance(Form::class);
         $this->pid = $this->getPid();
 
         $formRuntime = $this->finisherContext->getFormRuntime();
@@ -93,8 +84,7 @@ class SaveFormFinisher extends AbstractFinisher
         $this->attachFiles($formRuntime);
 
         $this->formRepository->add($this->saveForm);
-
-        $this->objectManager->get(PersistenceManager::class)->persistAll();
+        $this->persistenceManager->persistAll();
     }
 
     /**
@@ -102,7 +92,7 @@ class SaveFormFinisher extends AbstractFinisher
      *
      * @param FormRuntime $formRuntime
      */
-    protected function attachFiles(FormRuntime $formRuntime)
+    protected function attachFiles(FormRuntime $formRuntime): void
     {
         $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
 
@@ -111,8 +101,7 @@ class SaveFormFinisher extends AbstractFinisher
                 $file = $formRuntime[$element->getIdentifier()];
 
                 if ($file) {
-                    /** @var AttachFileReference $attachment */
-                    $attachment = $this->objectManager->get(AttachFileReference::class);
+                    $attachment = GeneralUtility::makeInstance(AttachFileReference::class);
 
                     if ($file instanceof FileReference) {
                         $file = $file->getOriginalResource();
@@ -164,8 +153,7 @@ class SaveFormFinisher extends AbstractFinisher
             );
         }
 
-        /** @var StandaloneView $standaloneView */
-        $standaloneView = $this->objectManager->get(StandaloneView::class);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setTemplatePathAndFilename($this->options['templatePathAndFilename']);
         $standaloneView->assign('finisherVariableProvider', $this->finisherContext->getFinisherVariableProvider());
 
@@ -190,8 +178,7 @@ class SaveFormFinisher extends AbstractFinisher
     }
 
     /**
-     * @return string
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     * Create a name for new save to db record
      */
     protected function generateName(): string
     {

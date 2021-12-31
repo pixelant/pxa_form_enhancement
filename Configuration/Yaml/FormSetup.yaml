@@ -1,0 +1,64 @@
+imports:
+  - { resource: "./Finishers/SaveForm.yaml" }
+  - { resource: "./FormElements/Recaptcha.yaml" }
+  - { resource: "./Validators/Recaptcha.yaml" }
+
+
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formEngine:
+            translationFiles:
+              20: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
+
+          formEditor:
+            translationFiles:
+              20: EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf
+
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                partialRootPaths:
+                  510: 'EXT:pxa_form_enhancement/Resources/Private/Frontend/Partials/'
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      510:
+                        value: SaveForm
+                        label: formEditor.elements.Form.editor.finishers.SaveForm.label
+                propertyCollections:
+                  finishers:
+                    510:
+                      identifier: SaveForm
+                      editors:
+                        100:
+                          identifier: header
+                          templateName: Inspector-CollectionElementHeaderEditor
+                          label: formEditor.elements.Form.finisher.SaveForm.editor.header.label
+                        200:
+                          identifier: name
+                          templateName: Inspector-TextEditor
+                          label: formEditor.elements.Form.finisher.SaveForm.editor.name.label
+                          propertyPath: options.name
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: NotEmpty
+                            20: FormElementIdentifierWithinCurlyBracesInclusive
+                        300:
+                          identifier: pageUid
+                          templateName: Inspector-Typo3WinBrowserEditor
+                          label: formEditor.elements.Form.finisher.SaveForm.editor.pageUid.label
+                          buttonLabel: formEditor.elements.Form.finisher.SaveForm.editor.pageUid.buttonLabel
+                          browsableType: pages
+                          iconIdentifier: apps-pagetree-page-default
+                          propertyPath: options.pageUid
+                          propertyValidatorsMode: OR
+                          propertyValidators:
+                            10: Integer
+                            20: FormElementIdentifierWithinCurlyBracesExclusive
+                        9999:
+                          identifier: removeButton
+                          templateName: Inspector-RemoveElementEditor

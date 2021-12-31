@@ -1,0 +1,11 @@
+# Settings for recaptcha
+plugin.tx_pxaformenhancement {
+    # customsubcategory=recaptcha=Recaptcha configuration
+    settings {
+        # cat=plugin.tx_pxaformenhancement/recaptcha/015; type=string; label=Site key
+        siteKey =
+
+        # cat=plugin.tx_pxaformenhancement/recaptcha/020; type=string; label=Site secret
+        siteSecret =
+    }
+}

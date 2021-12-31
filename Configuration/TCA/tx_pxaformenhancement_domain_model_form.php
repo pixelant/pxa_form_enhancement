@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 $ll = 'LLL:EXT:pxa_form_enhancement/Resources/Private/Language/locallang_db.xlf:';
 $llImagePalette = 'LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette';
@@ -14,11 +15,8 @@ return [
         'default_sortby' => 'crdate DESC',
 
         'delete' => 'deleted',
-        'enablecolumns' => [
-            'disabled' => 'hidden'
-        ],
 
-        'searchFields' => 'name,form_data,',
+        'searchFields' => 'name,form_data',
         'typeicon_classes' => [
             'default' => 'ext-pxaformenhancement-letter-icon'
         ]
@@ -28,14 +26,11 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => '
-                hidden,
-	            --palette--;;main,
-	            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,starttime, endtime'
-        ]
+            'showitem' => 'name, attachments, form_data'
+        ],
     ],
     'palettes' => [
-        'main' => ['showitem' => 'name, --linebreak--, attachments, --linebreak--, form_data'],
+        '1' => ['showitem' => ''],
     ],
     'columns' => [
         'hidden' => [

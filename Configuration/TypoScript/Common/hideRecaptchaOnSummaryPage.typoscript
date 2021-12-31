@@ -1,7 +1,0 @@
-plugin.tx_form {
-  settings {
-    yamlConfigurations {
-      530 = EXT:pxa_form_enhancement/Configuration/Yaml/PxaFormAdditionalConfiguration.yaml
-    }
-  }
-}
