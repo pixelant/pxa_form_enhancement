@@ -24,7 +24,7 @@ $EM_CONF['pxa_form_enhancement'] = [
     'version' => '3.4.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.99-11.5.99',
+            'typo3' => '10.4.0-11.5.99',
         ],
         'conflicts' => [
         ],
