@@ -54,10 +54,27 @@ class SaveFormFinisher extends AbstractFinisher
      */
     protected int $pid = 0;
 
-    public function __construct(FormRepository $formRepository, ResourceFactory $resourceFactory, PersistenceManagerInterface $persistenceManager)
+    /**
+     * @param \Pixelant\PxaFormEnhancement\Domain\Repository\FormRepository $formRepository
+     */
+    public function injectFormRepository(FormRepository $formRepository)
     {
         $this->formRepository = $formRepository;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Core\Resource\ResourceFactory $resourceFactory
+     */
+    public function injectResourceFactory(ResourceFactory $resourceFactory)
+    {
         $this->resourceFactory = $resourceFactory;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+     */
+    public function injectPersistenceManagerInterface(PersistenceManagerInterface $persistenceManager)
+    {
         $this->persistenceManager = $persistenceManager;
     }
 
