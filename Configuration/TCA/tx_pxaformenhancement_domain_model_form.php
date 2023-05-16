@@ -72,32 +72,32 @@ return [
                         'types' => [
                             '0' => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
                                 'showitem' => '
-                                --palette--;' . $llImagePalette . '
+                                --palette--;' . $llImagePalette . ',
                                 --palette--;;filePalette'
                             ]
                         ]
